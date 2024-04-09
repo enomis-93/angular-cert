@@ -1,33 +1,39 @@
 import { Injectable } from '@angular/core';
-import {WeatherService} from "./weather.service";
+import { Store, select } from '@ngrx/store';
+import { LocationsStateInterface } from './interfaces/locations.interfaces';
+import { addLocation, removeLocation } from './store/location/location.actions';
+import { Observable } from 'rxjs';
+import { selectAllLocations } from './store/weather/weather.selector';
+import { toSignal } from '@angular/core/rxjs-interop';
 
-export const LOCATIONS : string = "locations";
+export const LOCATIONS: string = 'locations';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class LocationService {
+    locations$: Observable<string[]> = this.store.pipe(
+        select(selectAllLocations)
+    );
 
-  locations : string[] = [];
+    locations = toSignal(this.locations$);
 
-  constructor(private weatherService : WeatherService) {
-    let locString = localStorage.getItem(LOCATIONS);
-    if (locString)
-      this.locations = JSON.parse(locString);
-    for (let loc of this.locations)
-      this.weatherService.addCurrentConditions(loc);
-  }
-
-  addLocation(zipcode : string) {
-    this.locations.push(zipcode);
-    localStorage.setItem(LOCATIONS, JSON.stringify(this.locations));
-    this.weatherService.addCurrentConditions(zipcode);
-  }
-
-  removeLocation(zipcode : string) {
-    let index = this.locations.indexOf(zipcode);
-    if (index !== -1){
-      this.locations.splice(index, 1);
-      localStorage.setItem(LOCATIONS, JSON.stringify(this.locations));
-      this.weatherService.removeCurrentConditions(zipcode);
+    constructor(private store: Store<{ locations: LocationsStateInterface }>) {
+        let storedLocations = localStorage.getItem(LOCATIONS);
+        if (storedLocations) {
+            for (let loc of JSON.parse(storedLocations)) {
+                this.store.dispatch(addLocation({ zipcode: loc }));
+            }
+        }
     }
-  }
+
+    addLocation(zipcode: string) {
+        this.store.dispatch(addLocation({ zipcode }));
+        localStorage.setItem(LOCATIONS, JSON.stringify(this.locations()));
+    }
+
+    removeLocation(zipcode: string) {
+        this.store.dispatch(removeLocation({ zipcode }));
+        localStorage.setItem(LOCATIONS, JSON.stringify(this.locations()));
+    }
 }

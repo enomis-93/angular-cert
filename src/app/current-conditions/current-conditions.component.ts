@@ -1,22 +1,37 @@
-import {Component, inject, Signal} from '@angular/core';
-import {WeatherService} from "../weather.service";
-import {LocationService} from "../location.service";
-import {Router} from "@angular/router";
-import {ConditionsAndZip} from '../conditions-and-zip.type';
+import { Component, inject, OnInit, Signal } from '@angular/core';
+import { WeatherService } from '../weather.service';
+import { LocationService } from '../location.service';
+import { Router } from '@angular/router';
+import { ConditionsAndZip } from 'app/interfaces/conditionsAndZip.interface';
+import { Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { selectAllCurrentConditions } from 'app/store/weather/weather.selector';
+import { WeatherState } from 'app/interfaces/weatherState.interface';
 
 @Component({
-  selector: 'app-current-conditions',
-  templateUrl: './current-conditions.component.html',
-  styleUrls: ['./current-conditions.component.css']
+    selector: 'app-current-conditions',
+    templateUrl: './current-conditions.component.html',
+    styleUrls: ['./current-conditions.component.css']
 })
-export class CurrentConditionsComponent {
+export class CurrentConditionsComponent implements OnInit {
+    private weatherService = inject(WeatherService);
+    private router = inject(Router);
+    protected locationService = inject(LocationService);
 
-  private weatherService = inject(WeatherService);
-  private router = inject(Router);
-  protected locationService = inject(LocationService);
-  protected currentConditionsByZip: Signal<ConditionsAndZip[]> = this.weatherService.getCurrentConditions();
+    currentConditions$: Observable<ConditionsAndZip[] | null>;
 
-  showForecast(zipcode : string){
-    this.router.navigate(['/forecast', zipcode])
-  }
+    constructor(private store: Store<WeatherState>) {}
+
+    ngOnInit(): void {
+        this.currentConditions$ = this.store.pipe(
+            select(selectAllCurrentConditions)
+        );
+    }
+
+    // protected currentConditionsByZip: Signal<ConditionsAndZip[]> =
+    //     this.weatherService.getCurrentConditions();
+
+    showForecast(zipcode: string) {
+        this.router.navigate(['/forecast', zipcode]);
+    }
 }

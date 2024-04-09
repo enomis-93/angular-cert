@@ -15,15 +15,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
-import { StoreDevtools, StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects'; // Optional, for handling side effects
+import { weatherReducer } from './store/weather/weather.reducer';
+import { WeatherEffects } from './store/weather/weather.effects';
 
 @NgModule({
     declarations: [
         AppComponent,
         ZipcodeEntryComponent,
-        ForecastsListComponent,
         CurrentConditionsComponent,
-        MainPageComponent
+        MainPageComponent,
+        ForecastsListComponent
     ],
     imports: [
         BrowserModule,
@@ -34,14 +37,17 @@ import { StoreDevtools, StoreDevtoolsModule } from '@ngrx/store-devtools';
         ServiceWorkerModule.register('/ngsw-worker.js', {
             enabled: environment.production
         }),
-        StoreModule.forRoot({}, {}),
+        StoreModule.forRoot({
+            weather: weatherReducer
+        }),
+        EffectsModule.forRoot([WeatherEffects]),
         StoreDevtoolsModule.instrument({
             maxAge: 25, // Retains last 25 states
             logOnly: !isDevMode(), // Restrict extension to log-only mode
             autoPause: true // Pauses recording actions and state changes when the extension window is not open
         })
     ],
-    providers: [LocationService, WeatherService],
+    providers: [],
     bootstrap: [AppComponent]
 })
 export class AppModule {}
