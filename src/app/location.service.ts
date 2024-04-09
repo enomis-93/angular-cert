@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { LocationsStateInterface } from './interfaces/locations.interfaces';
-import { addLocation, removeLocation } from './store/location/location.actions';
+import {
+    addLocation,
+    addLocationFail,
+    removeLocation
+} from './store/location/location.actions';
 import { Observable } from 'rxjs';
-import { selectAllLocations } from './store/weather/weather.selector';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { isValidUSZipCode } from './utils/us-zip-code.validator';
+import { selectAllLocations } from './store/location/location.selectors';
 
 export const LOCATIONS: string = 'locations';
 
@@ -28,6 +33,22 @@ export class LocationService {
     }
 
     addLocation(zipcode: string) {
+        // Validate Zip Code
+        if (!isValidUSZipCode(zipcode)) {
+            this.store.dispatch(
+                addLocationFail({ error: 'Invalid US Zip Code' })
+            );
+            return;
+        }
+        console.log(this.locations());
+        // Check if zipcode already exist
+        if (this.locations().includes(zipcode)) {
+            this.store.dispatch(
+                addLocationFail({ error: 'Zip Code Already Exist!' })
+            );
+            return;
+        }
+
         this.store.dispatch(addLocation({ zipcode }));
         localStorage.setItem(LOCATIONS, JSON.stringify(this.locations()));
     }

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { ConditionsAndZip } from 'app/interfaces/conditionsAndZip.interface';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { selectAllCurrentConditions } from 'app/store/weather/weather.selector';
+import { selectAllCurrentConditions } from 'app/store/weather/weather.selectors';
 import { WeatherState } from 'app/interfaces/weatherState.interface';
 
 @Component({

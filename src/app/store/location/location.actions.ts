@@ -9,3 +9,8 @@ export const removeLocation = createAction(
     '[Location] Remove Location',
     props<{ zipcode: string }>()
 );
+
+export const addLocationFail = createAction(
+    '[Location] Add Location Fail',
+    props<{ error: string }>()
+);

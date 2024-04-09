@@ -16,8 +16,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { EffectsModule } from '@ngrx/effects'; // Optional, for handling side effects
-import { weatherReducer } from './store/weather/weather.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { locationReducer } from './store/location/location.reducers';
+import { weatherReducer } from './store/weather/weather.reducers';
 import { WeatherEffects } from './store/weather/weather.effects';
 
 @NgModule({
@@ -38,6 +39,7 @@ import { WeatherEffects } from './store/weather/weather.effects';
             enabled: environment.production
         }),
         StoreModule.forRoot({
+            locations: locationReducer,
             weather: weatherReducer
         }),
         EffectsModule.forRoot([WeatherEffects]),

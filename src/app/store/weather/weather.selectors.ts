@@ -9,8 +9,3 @@ export const selectAllCurrentConditions = createSelector(
     (state) =>
         state.currentConditions ? Object.values(state.currentConditions) : [] // Extract values with type checking
 );
-
-export const selectAllLocations = createSelector(
-    selectWeatherFeature,
-    (state) => state.locations
-);
