@@ -22,7 +22,17 @@ export const weatherReducer = createReducer(
     on(weatherActions.loadCurrentConditionsFail, (state, { error }) => ({
         ...state,
         error
-    }))
+    })),
+    on(locationActions.removeLocation, (state, { zipcode }) => {
+        const filteredCurrentConditions = state.currentConditions.filter(
+            (loc) => loc.zipcode !== zipcode
+        );
+
+        return {
+            ...state,
+            currentConditions: filteredCurrentConditions
+        };
+    })
 );
 
 export const getCurrentConditions = (state: WeatherState) =>
