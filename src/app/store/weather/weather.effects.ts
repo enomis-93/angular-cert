@@ -12,7 +12,7 @@ import { of } from 'rxjs';
 import * as weatherActions from './weather.actions';
 import { Store } from '@ngrx/store';
 import { CurrentConditions } from 'app/interfaces/current-conditions.type';
-import { WeatherService } from 'app/weather.service';
+import { WeatherService } from 'app/services/weather.service';
 import * as locationActions from '../location/location.actions';
 import { ConditionsAndZip } from 'app/interfaces/conditionsAndZip.interface';
 import { WeatherState } from 'app/interfaces/weatherState.interface';

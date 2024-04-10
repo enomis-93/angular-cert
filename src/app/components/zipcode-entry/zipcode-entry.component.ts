@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { LocationService } from '../location.service';
 import { LocationsStateInterface } from 'app/interfaces/locations.interfaces';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { isLocationError } from 'app/store/location/location.selectors';
+import { LocationService } from 'app/services/location.service';
 
 @Component({
     selector: 'app-zipcode-entry',

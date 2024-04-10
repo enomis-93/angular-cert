@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
-import { Forecast } from './forecasts-list/forecast.type';
-import { CurrentConditions } from './interfaces/current-conditions.type';
+import { Forecast } from '../components/forecasts-list/forecast.type';
+import { CurrentConditions } from '../interfaces/current-conditions.type';
 
 @Injectable({
     providedIn: 'root'

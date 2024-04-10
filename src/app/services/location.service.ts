@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { LocationsStateInterface } from './interfaces/locations.interfaces';
+import { LocationsStateInterface } from '../interfaces/locations.interfaces';
 import {
     addLocation,
     addLocationFail,
     removeLocation
-} from './store/location/location.actions';
+} from '../store/location/location.actions';
 import { Observable } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { isValidUSZipCode } from './utils/us-zip-code.validator';
-import { selectAllLocations } from './store/location/location.selectors';
+import { isValidUSZipCode } from '../utils/us-zip-code.validator';
+import { selectAllLocations } from '../store/location/location.selectors';
 
 export const LOCATIONS: string = 'locations';
 
