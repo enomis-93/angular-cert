@@ -1,0 +1,15 @@
+<ul class="nav nav-tabs">
+    <li
+        *ngFor="let tab of data; let i = index"
+        [class.active]="selectedTabIndex === i"
+    >
+        <a (click)="selectTab(i)">{{ tab.title }}</a>
+    </li>
+</ul>
+<div class="tab-content">
+    <ng-container *ngFor="let tab of data; let i = index">
+        <div *ngIf="selectedTabIndex === i">
+            <ng-content></ng-content>
+        </div>
+    </ng-container>
+</div>

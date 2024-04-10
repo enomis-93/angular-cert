@@ -1,0 +1,54 @@
+.nav-tabs {
+    border-bottom: 1px solid #ddd;
+    li {
+        background-color: #588bb8;
+        border-radius: 4px 4px 0 0;
+        margin-right: 3px;
+        a {
+            color: white;
+            margin-right: 0px;
+            cursor: pointer;
+        }
+
+        &:hover,
+        &:focus {
+            background-color: #337ab7;
+        }
+
+        &.active {
+            a {
+                color: black;
+            }
+        }
+    }
+
+    li:not(:first-child) a {
+        /* Target all li elements except the first child */
+        margin-right: 0px;
+    }
+    .nav-item {
+        margin-bottom: -1px;
+
+        a {
+            padding: 10px 15px;
+            border: none;
+            color: white;
+            &:hover,
+            &:focus {
+                background-color: #337ab7;
+            }
+            &.active {
+                background-color: #588bb8;
+                border-bottom-color: transparent;
+            }
+        }
+    }
+}
+
+.tab-content {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    margin-bottom: 1em;
+}

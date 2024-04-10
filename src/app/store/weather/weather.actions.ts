@@ -8,7 +8,7 @@ export const loadCurrentConditions = createAction(
 
 export const loadCurrentConditionsSuccess = createAction(
     '[Weather] Load Current Conditions Success',
-    props<{ data: ConditionsAndZip[] }>()
+    props<{ data: ConditionsAndZip[]; locationName: string }>()
 );
 
 export const loadCurrentConditionsFail = createAction(

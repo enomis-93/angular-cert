@@ -1,36 +1,37 @@
-<div>
-    <div
-        *ngFor="let location of currentConditions$ | async"
-        class="well flex"
-        (click)="showForecast(location.zipcode)"
-    >
+<ng-container *ngIf="locationData[activeTabIndex] as location">
+    <div class="flex" (click)="showForecast(location.zipcode)">
         <div>
-            <h3>{{ location.data.name }} ({{ location.zipcode }})</h3>
-            <h4>Current conditions: {{ location.data.weather[0].main }}</h4>
+            <h3>{{ location.content.name }}</h3>
+            <h4>Current conditions: {{ location.content.weather[0].main }}</h4>
             <h4>Temperatures today:</h4>
             <p>
-                Current {{ location.data.main.temp | number : '.0-0' }} - Max
-                {{ location.data.main.temp_max | number : '.0-0' }} - Min
-                {{ location.data.main.temp_min | number : '.0-0' }}
+                Current {{ location.content.main.temp | number : '.0-0' }} - Max
+                {{ location.content.main.temp_max | number : '.0-0' }} - Min
+                {{ location.content.main.temp_min | number : '.0-0' }}
             </p>
             <p>
-                <a [routerLink]="['/forecast', location.zipcode]"
-                    >Show 5-day forecast for {{ location.data.name }}</a
+                <a [routerLink]="['/forecast', location.content.zipcode]"
+                    >Show 5-day forecast for {{ location.content.name }}</a
                 >
             </p>
         </div>
         <div>
             <span
                 class="close"
-                (click)="locationService.removeLocation(location.zipcode)"
+                (click)="
+                    locationService.removeLocation(location.content.zipcode)
+                "
                 >&times;</span
             >
             <img
                 alt="weather-ico"
                 [src]="
-                    weatherService.getWeatherIcon(location.data.weather[0].id)
+                    weatherService.getWeatherIcon(
+                        location,
+                        location.content.weather[0].id
+                    )
                 "
             />
         </div>
     </div>
-</div>
+</ng-container>

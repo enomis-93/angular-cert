@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, Signal } from '@angular/core';
+import { Component, inject, Input, OnInit, Signal } from '@angular/core';
 import { WeatherService } from '../../services/weather.service';
 import { LocationService } from '../../services/location.service';
 import { Router } from '@angular/router';
@@ -14,22 +14,16 @@ import { WeatherState } from 'app/interfaces/weatherState.interface';
     styleUrls: ['./current-conditions.component.css']
 })
 export class CurrentConditionsComponent implements OnInit {
+    @Input() locationData: any;
+    @Input() activeTabIndex: number;
+
     private weatherService = inject(WeatherService);
     private router = inject(Router);
     protected locationService = inject(LocationService);
 
-    currentConditions$: Observable<ConditionsAndZip[] | null>;
+    constructor() {}
 
-    constructor(private store: Store<WeatherState>) {}
-
-    ngOnInit(): void {
-        this.currentConditions$ = this.store.pipe(
-            select(selectAllCurrentConditions)
-        );
-    }
-
-    // protected currentConditionsByZip: Signal<ConditionsAndZip[]> =
-    //     this.weatherService.getCurrentConditions();
+    ngOnInit(): void {}
 
     showForecast(zipcode: string) {
         this.router.navigate(['/forecast', zipcode]);

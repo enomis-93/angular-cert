@@ -1,6 +1,10 @@
 <div class="container-fluid">
-
-  <app-zipcode-entry> </app-zipcode-entry>
-  <app-current-conditions></app-current-conditions>
-
+    <app-zipcode-entry> </app-zipcode-entry>
+    <app-tabs [data]="tabs$ | async" (tabChange)="onTabChange($event)">
+        <app-current-conditions
+            [locationData]="tabs$ | async"
+            [activeTabIndex]="activeTabIndex"
+        ></app-current-conditions>
+    </app-tabs>
+    <!-- <app-current-conditions></app-current-conditions> -->
 </div>

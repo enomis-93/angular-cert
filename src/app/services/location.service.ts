@@ -40,7 +40,6 @@ export class LocationService {
             );
             return;
         }
-        console.log(this.locations());
         // Check if zipcode already exist
         if (this.locations().includes(zipcode)) {
             this.store.dispatch(

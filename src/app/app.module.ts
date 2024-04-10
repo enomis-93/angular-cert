@@ -20,6 +20,7 @@ import { locationReducer } from './store/location/location.reducers';
 import { weatherReducer } from './store/weather/weather.reducers';
 import { WeatherEffects } from './store/weather/weather.effects';
 import { ZipcodeEntryComponent } from './components/zipcode-entry/zipcode-entry.component';
+import { TabsComponent } from './shared/components/tabs/tabs.component';
 
 @NgModule({
     declarations: [
@@ -27,7 +28,8 @@ import { ZipcodeEntryComponent } from './components/zipcode-entry/zipcode-entry.
         ZipcodeEntryComponent,
         CurrentConditionsComponent,
         MainPageComponent,
-        ForecastsListComponent
+        ForecastsListComponent,
+        TabsComponent
     ],
     imports: [
         BrowserModule,

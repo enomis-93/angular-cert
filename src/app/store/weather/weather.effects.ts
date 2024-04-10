@@ -39,7 +39,8 @@ export class WeatherEffects {
                 this.weatherService.getCurrentConditions(zipcode).pipe(
                     map((data) =>
                         weatherActions.loadCurrentConditionsSuccess({
-                            data: [{ zipcode, data }]
+                            data: [{ zipcode, data }],
+                            locationName: data.name
                         })
                     ),
                     catchError((error) =>
