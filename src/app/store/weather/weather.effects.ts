@@ -13,11 +13,11 @@ import * as weatherActions from './weather.actions';
 import { Store } from '@ngrx/store';
 import { CurrentConditions } from 'app/interfaces/current-conditions.type';
 import { WeatherService } from 'app/weather.service';
-import { selectAllCurrentConditions } from './weather.selectors';
 import * as locationActions from '../location/location.actions';
 import { ConditionsAndZip } from 'app/interfaces/conditionsAndZip.interface';
 import { WeatherState } from 'app/interfaces/weatherState.interface';
 import { HttpClient } from '@angular/common/http';
+import { selectAllLocations } from '../location/location.selectors';
 
 @Injectable()
 export class WeatherEffects {
@@ -30,17 +30,10 @@ export class WeatherEffects {
     loadCurrentConditions$ = createEffect(() =>
         this.actions$.pipe(
             ofType(locationActions.addLocation), // Listen for location actions
-            withLatestFrom(this.store.select(selectAllCurrentConditions)),
-            map(([action, currentConditions]) => {
+            withLatestFrom(this.store.select(selectAllLocations)),
+            map(([action]) => {
                 const zipcode = action.zipcode; // Extract zipcode from location action
-                return { zipcode, currentConditions };
-            }),
-            // TODO Avoid filter here, but check for existing zipcode before
-            filter(({ currentConditions, zipcode }) => {
-                // Filter if zipcode doesn't exist or needs removal
-                return !currentConditions?.find(
-                    (c: ConditionsAndZip) => c.zipcode === zipcode
-                );
+                return { zipcode };
             }),
             mergeMap(({ zipcode }) =>
                 this.weatherService.getCurrentConditions(zipcode).pipe(
