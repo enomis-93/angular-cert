@@ -8,10 +8,10 @@
         <span class="close" (click)="closeTab(i, data)">&times;</span>
     </li>
 </ul>
-<div class="tab-content">
-    <ng-container *ngFor="let tab of data; let i = index">
-        <div *ngIf="selectedTabIndex === i">
-            <ng-content></ng-content>
-        </div>
-    </ng-container>
-</div>
+<ng-container *ngFor="let tab of data; let i = index">
+    <div *ngIf="selectedTabIndex === i" class="tab-content">
+        <!-- if not children with tabContent ref is provided, then render content in a div -->
+        <div *ngIf="!tabContent">{{ tab.content }}</div>
+        <ng-content></ng-content>
+    </div>
+</ng-container>

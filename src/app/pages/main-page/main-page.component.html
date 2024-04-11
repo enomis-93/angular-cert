@@ -6,6 +6,7 @@
         (onCloseTab)="onCloseTab($event)"
     >
         <app-current-conditions
+            #tabContent
             [locationData]="tabs$ | async"
             [activeTabIndex]="activeTabIndex"
         ></app-current-conditions>

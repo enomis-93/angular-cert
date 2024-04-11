@@ -1,8 +1,13 @@
 import {
+    AfterContentChecked,
+    AfterViewChecked,
+    AfterViewInit,
     Component,
     ContentChild,
+    ElementRef,
     EventEmitter,
     Input,
+    OnInit,
     Output
 } from '@angular/core';
 
@@ -21,7 +26,7 @@ export class TabsComponent {
     @Output() tabChange = new EventEmitter<number>();
     @Output() onCloseTab = new EventEmitter<TabCloseEvent<any>>();
 
-    @ContentChild('tab-content') tabContentTemplate: any;
+    @ContentChild('tabContent') tabContent: ElementRef;
 
     selectedTabIndex = 0;
 
