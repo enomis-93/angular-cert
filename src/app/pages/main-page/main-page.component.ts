@@ -4,6 +4,8 @@ import { ConditionsAndZip } from 'app/interfaces/conditionsAndZip.interface';
 import { CurrentConditions } from 'app/interfaces/current-conditions.type';
 import { TabInterface } from 'app/interfaces/tabs.interfaces';
 import { WeatherState } from 'app/interfaces/weatherState.interface';
+import { LocationService } from 'app/services/location.service';
+import { TabCloseEvent } from 'app/shared/components/tabs/tabs.component';
 import { selectAllCurrentConditions } from 'app/store/weather/weather.selectors';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -17,7 +19,10 @@ export class MainPageComponent implements OnInit {
 
     activeTabIndex = 0;
 
-    constructor(private store: Store<WeatherState>) {}
+    constructor(
+        private store: Store<WeatherState>,
+        private locationService: LocationService
+    ) {}
 
     ngOnInit(): void {
         this.tabs$ = this.store.pipe(
@@ -33,5 +38,11 @@ export class MainPageComponent implements OnInit {
 
     onTabChange(index: number) {
         this.activeTabIndex = index;
+    }
+
+    onCloseTab(event: TabCloseEvent<CurrentConditions>) {
+        const locationToRemove: TabInterface<CurrentConditions> =
+            event.data[event.index];
+        this.locationService.removeLocation(locationToRemove.content.zipcode);
     }
 }

@@ -12,6 +12,7 @@ export interface CurrentConditions {
     id: number;
     name: string;
     cod: number;
+    zipcode?: string;
 }
 
 export interface Clouds {

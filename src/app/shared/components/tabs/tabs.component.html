@@ -2,8 +2,10 @@
     <li
         *ngFor="let tab of data; let i = index"
         [class.active]="selectedTabIndex === i"
+        class="flex"
     >
         <a (click)="selectTab(i)">{{ tab.title }}</a>
+        <span class="close" (click)="closeTab(i, data)">&times;</span>
     </li>
 </ul>
 <div class="tab-content">
