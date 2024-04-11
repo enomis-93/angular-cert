@@ -17,7 +17,7 @@ export interface TabCloseEvent<T> {
     styleUrls: ['./tabs.component.scss']
 })
 export class TabsComponent {
-    @Input() data: { title: string; content: any }[] = [];
+    @Input({ required: true }) data: { title: string; content: any }[] = [];
     @Output() tabChange = new EventEmitter<number>();
     @Output() onCloseTab = new EventEmitter<TabCloseEvent<any>>();
 
