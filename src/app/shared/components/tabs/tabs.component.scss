@@ -1,21 +1,29 @@
 .nav-tabs {
     border-bottom: 1px solid #ddd;
+
     li {
         background-color: #588bb8;
         border-radius: 4px 4px 0 0;
         margin-right: 3px;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+
         a {
+            border: none;
             color: white;
-            margin-right: 0px;
+            margin-right: 0;
             cursor: pointer;
         }
 
-        &:hover,
-        &:focus {
-            background-color: #337ab7;
+        .close {
+            padding: 0 3px;
         }
 
         &.active {
+            border-bottom: none;
+            background-color: white;
+
             a {
                 color: black;
             }
@@ -23,9 +31,9 @@
     }
 
     li:not(:first-child) a {
-        /* Target all li elements except the first child */
-        margin-right: 0px;
+        margin-right: 0;
     }
+
     .nav-item {
         margin-bottom: -1px;
 
@@ -33,16 +41,17 @@
             padding: 10px 15px;
             border: none;
             color: white;
-            &:hover,
-            &:focus {
-                background-color: #337ab7;
-            }
-            &.active {
-                background-color: #588bb8;
-                border-bottom-color: transparent;
-            }
         }
     }
+}
+
+.nav > li > a:hover {
+    background-color: transparent;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
 }
 
 .tab-content {
