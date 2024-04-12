@@ -1,5 +1,9 @@
 <ng-container *ngIf="locationData[activeTabIndex] as location">
-    <div class="flex" (click)="showForecast(location.zipcode)">
+    <div
+        class="flex"
+        [ngStyle]="{ cursor: 'pointer' }"
+        (click)="showForecast(location.content.zipcode)"
+    >
         <div>
             <h3>{{ location.content.name }}</h3>
             <h4>Current conditions: {{ location.content.weather[0].main }}</h4>
