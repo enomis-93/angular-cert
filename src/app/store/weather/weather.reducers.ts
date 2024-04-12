@@ -17,20 +17,27 @@ export const weatherReducer = createReducer(
     })),
     on(weatherActions.loadCurrentConditionsSuccess, (state, { data }) => ({
         ...state,
-        currentConditions: [...(state.currentConditions || []), ...data]
+        currentConditions: [...(state.currentConditions || []), ...data],
+        error: null
     })),
     on(weatherActions.loadCurrentConditionsFail, (state, { error }) => ({
         ...state,
         error
     })),
     on(locationActions.removeLocation, (state, { zipcode }) => {
-        const filteredCurrentConditions = state.currentConditions.filter(
-            (loc) => loc.zipcode !== zipcode
-        );
+        if (!state.error) {
+            const filteredCurrentConditions = state.currentConditions.filter(
+                (loc) => loc.zipcode !== zipcode
+            );
+
+            return {
+                ...state,
+                currentConditions: filteredCurrentConditions
+            };
+        }
 
         return {
-            ...state,
-            currentConditions: filteredCurrentConditions
+            ...state
         };
     })
 );

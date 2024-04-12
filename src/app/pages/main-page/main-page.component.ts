@@ -64,6 +64,7 @@ export class MainPageComponent implements OnInit {
     }
 
     setActiveIndex(event: TabCloseEvent<CurrentConditions>) {
+        // Set the the active tab index to currentConditions Array lenght minus one, cause removing a tab
         if (event.index != this.activeTabIndexSignal$()) {
             this.store.dispatch(
                 setActiveTab({
@@ -73,7 +74,7 @@ export class MainPageComponent implements OnInit {
             return;
         }
 
-        //  If equal to active tab index set first tab as active
+        //  If tab to close index is equal to active tab index set first tab as active
         this.store.dispatch(setActiveTab({ index: 0 }));
     }
 }

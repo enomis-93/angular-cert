@@ -7,9 +7,17 @@
         Add location
     </button>
 </div>
+<!-- Error message for Location -->
 <p
-    *ngIf="isError$ | async as error"
+    *ngIf="isLocationError$ | async as error"
     [ngStyle]="{ color: 'red', fontWeight: 'bold', textAlign: 'center' }"
 >
     {{ error }}
+</p>
+<!-- Error message on loading current conditions fails -->
+<p
+    *ngIf="hasLoadCurrentConditionError$ | async as error"
+    [ngStyle]="{ color: 'red', fontWeight: 'bold', textAlign: 'center' }"
+>
+    {{ error.error.message }}
 </p>

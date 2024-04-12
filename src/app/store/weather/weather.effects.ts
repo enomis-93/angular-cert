@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Signal } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -7,8 +7,11 @@ import * as weatherActions from './weather.actions';
 import { Store } from '@ngrx/store';
 import { WeatherService } from 'app/services/weather.service';
 import * as locationActions from '../location/location.actions';
+import * as tabsActions from '../tabs/tab.action';
 import { WeatherState } from 'app/interfaces/weatherState.interface';
 import { selectAllLocations } from '../location/location.selectors';
+import { selectAllCurrentConditions } from './weather.selectors';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable()
 export class WeatherEffects {
@@ -34,13 +37,18 @@ export class WeatherEffects {
                             locationName: data.name
                         })
                     ),
-                    catchError((error) =>
-                        of(
+                    catchError((error) => {
+                        return of(
                             weatherActions.loadCurrentConditionsFail({
                                 error
-                            })
-                        )
-                    )
+                            }),
+                            tabsActions.setActiveTab({
+                                index: 0
+                            }),
+                            // Remove zipcode from locations if fails
+                            locationActions.removeLocation({ zipcode })
+                        );
+                    })
                 )
             )
         )

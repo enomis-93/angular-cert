@@ -49,11 +49,9 @@ export class LocationService {
         }
 
         this.store.dispatch(addLocation({ zipcode }));
-        localStorage.setItem(LOCATIONS, JSON.stringify(this.locations()));
     }
 
     removeLocation(zipcode: string) {
         this.store.dispatch(removeLocation({ zipcode }));
-        localStorage.setItem(LOCATIONS, JSON.stringify(this.locations()));
     }
 }
