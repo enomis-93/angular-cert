@@ -21,6 +21,8 @@ import { weatherReducer } from './store/weather/weather.reducers';
 import { WeatherEffects } from './store/weather/weather.effects';
 import { ZipcodeEntryComponent } from './components/zipcode-entry/zipcode-entry.component';
 import { TabsComponent } from './shared/components/tabs/tabs.component';
+import { tabReducer } from './store/tabs/tab.reducers';
+import { TabEffects } from './store/tabs/tab.effects';
 
 @NgModule({
     declarations: [
@@ -42,9 +44,10 @@ import { TabsComponent } from './shared/components/tabs/tabs.component';
         }),
         StoreModule.forRoot({
             locations: locationReducer,
-            weather: weatherReducer
+            weather: weatherReducer,
+            activeTabIndex: tabReducer
         }),
-        EffectsModule.forRoot([WeatherEffects]),
+        EffectsModule.forRoot([WeatherEffects, TabEffects]),
         StoreDevtoolsModule.instrument({
             maxAge: 25, // Retains last 25 states
             logOnly: !isDevMode(), // Restrict extension to log-only mode

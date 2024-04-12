@@ -13,7 +13,7 @@ import { WeatherState } from 'app/interfaces/weatherState.interface';
     templateUrl: './current-conditions.component.html',
     styleUrls: ['./current-conditions.component.css']
 })
-export class CurrentConditionsComponent implements OnInit {
+export class CurrentConditionsComponent {
     @Input() locationData: any;
     @Input() activeTabIndex: number;
 
@@ -22,8 +22,6 @@ export class CurrentConditionsComponent implements OnInit {
     protected locationService = inject(LocationService);
 
     constructor() {}
-
-    ngOnInit(): void {}
 
     showForecast(zipcode: string) {
         this.router.navigate(['/forecast', zipcode]);

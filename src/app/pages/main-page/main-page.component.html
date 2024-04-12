@@ -4,11 +4,12 @@
         [data]="tabs$ | async"
         (tabChange)="onTabChange($event)"
         (onCloseTab)="onCloseTab($event)"
+        [activeTabIndex]="activeTabIndex$ | async"
     >
         <app-current-conditions
             #tabContent
             [locationData]="tabs$ | async"
-            [activeTabIndex]="activeTabIndex"
+            [activeTabIndex]="activeTabIndex$ | async"
         ></app-current-conditions>
     </app-tabs>
 </div>

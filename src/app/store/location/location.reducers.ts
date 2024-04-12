@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { LocationsStateInterface } from 'app/interfaces/locations.interfaces';
 import * as LocationActions from './location.actions';
-import { isValidUSZipCode } from 'app/utils/us-zip-code.validator';
+
 const initialState: LocationsStateInterface = {
     locations: [],
     error: null
