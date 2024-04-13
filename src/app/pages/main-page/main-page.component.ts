@@ -20,16 +20,12 @@ import { setActiveTab } from 'app/store/tabs/tab.action';
 export class MainPageComponent implements OnInit {
     tabs$: Observable<TabInterface<CurrentConditions>[]>;
 
-    activeTabIndex$: Observable<number | null> = this.store.pipe(
-        select(selectActiveTabIndex)
+    activeTabIndex$: Signal<number | null> = toSignal(
+        this.store.pipe(select(selectActiveTabIndex))
     );
 
     currentConditions$: Signal<ConditionsAndZip[]> = toSignal(
         this.store.pipe(select(selectAllCurrentConditions))
-    );
-
-    activeTabIndexSignal$: Signal<number | null> = toSignal(
-        this.activeTabIndex$
     );
 
     constructor(
@@ -65,7 +61,7 @@ export class MainPageComponent implements OnInit {
 
     setActiveIndex(event: TabCloseEvent<CurrentConditions>) {
         // Set the the active tab index to currentConditions Array lenght minus one, cause removing a tab
-        if (event.index != this.activeTabIndexSignal$()) {
+        if (event.index != this.activeTabIndex$()) {
             this.store.dispatch(
                 setActiveTab({
                     index: this.currentConditions$().length - 1
