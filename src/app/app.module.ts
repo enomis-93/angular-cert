@@ -23,6 +23,8 @@ import { ZipcodeEntryComponent } from './components/zipcode-entry/zipcode-entry.
 import { TabsComponent } from './shared/components/tabs/tabs.component';
 import { tabReducer } from './store/tabs/tab.reducers';
 import { TabEffects } from './store/tabs/tab.effects';
+import { CacheService } from './services/cache.service';
+import { CACHE_EXPIRY_TIME } from './utils/cache-expire.token';
 
 @NgModule({
     declarations: [
@@ -54,7 +56,10 @@ import { TabEffects } from './store/tabs/tab.effects';
             autoPause: true // Pauses recording actions and state changes when the extension window is not open
         })
     ],
-    providers: [],
+    providers: [
+        CacheService,
+        { provide: CACHE_EXPIRY_TIME, useValue: 7200 } // Default expiry time: 2 hours
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {}
