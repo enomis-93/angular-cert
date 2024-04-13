@@ -22,12 +22,7 @@
         <div>
             <img
                 alt="weather-ico"
-                [src]="
-                    weatherService.getWeatherIcon(
-                        location,
-                        location.content.weather[0].id
-                    )
-                "
+                [src]="getWeatherIcon(location.content.weather[0].id)"
             />
         </div>
     </div>

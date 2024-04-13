@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { selectAllCurrentConditions } from 'app/store/weather/weather.selectors';
 import { WeatherState } from 'app/interfaces/weatherState.interface';
+import { CurrentConditions } from 'app/interfaces/current-conditions.type';
 
 @Component({
     selector: 'app-current-conditions',
@@ -25,5 +26,9 @@ export class CurrentConditionsComponent {
 
     showForecast(zipcode: string) {
         this.router.navigate(['/forecast', zipcode]);
+    }
+
+    getWeatherIcon(iconID: number) {
+        return this.weatherService.getWeatherIcon(iconID);
     }
 }
