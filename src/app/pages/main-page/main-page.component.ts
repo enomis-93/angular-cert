@@ -70,7 +70,7 @@ export class MainPageComponent implements OnInit {
             return;
         }
 
-        //  If tab to close index is equal to active tab index set first tab as active
-        this.store.dispatch(setActiveTab({ index: 0 }));
+        //  If tab to close index is equal to active tab index set sibling tab as active
+        this.store.dispatch(setActiveTab({ index: event.index - 1 || 0 }));
     }
 }
