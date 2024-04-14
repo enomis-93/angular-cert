@@ -9,6 +9,7 @@ export class CacheService {
 
     setCache(key: string, data: any) {
         const now = new Date();
+        console.log(now.getTime());
         const item = {
             data: data,
             expiry: now.getTime() + this.expirySeconds * 1000 // expiry time in milliseconds
@@ -23,11 +24,21 @@ export class CacheService {
         }
         const item = JSON.parse(itemStr);
         const now = new Date();
-        if (now.getTime() > item.expiry) {
+        const currentTime = now.getTime();
+        if (currentTime > item.expiry) {
             // If data has expired, remove it from cache and return null
             localStorage.removeItem(key);
             return null;
         }
         return item.data;
+    }
+
+    removeCache(key: string): void {
+        const itemStr = localStorage.getItem(key);
+        if (!itemStr) {
+            return;
+        }
+
+        localStorage.removeItem(key);
     }
 }
