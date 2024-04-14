@@ -1,4 +1,4 @@
-import { CurrentConditions } from './current-conditions.type';
+import { CurrentConditions } from './currentConditions.interface';
 
 export interface ConditionsAndZip {
     zipcode: string;

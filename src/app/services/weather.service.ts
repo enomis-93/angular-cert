@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
-import { Forecast } from '../components/forecasts-list/forecast.type';
-import { CurrentConditions } from '../interfaces/current-conditions.type';
+import { Forecast } from '../interfaces/forecast.Interface';
+import { CurrentConditions } from '../interfaces/currentConditions.interface';
 import { CacheService } from './cache.service';
-import { catchError } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { ConditionsAndZip } from 'app/interfaces/conditionsAndZip.interface';
 import * as WeatherActions from '../store/weather/weather.actions';
 import { Store } from '@ngrx/store';
@@ -26,9 +26,28 @@ export class WeatherService {
     ) {}
 
     getForecast(zipcode: string): Observable<Forecast> {
-        return this.http.get<Forecast>(
-            `${WeatherService.URL}/forecast/daily?zip=${zipcode},us&units=imperial&cnt=5&APPID=${WeatherService.APPID}`
+        const cachedForecast: Forecast = this.cacheService.getCache(
+            `${zipcode}_forecast`
         );
+
+        if (!cachedForecast) {
+            return this.http
+                .get<Forecast>(
+                    `${WeatherService.URL}/forecast/daily?zip=${zipcode},us&units=imperial&cnt=5&APPID=${WeatherService.APPID}`
+                )
+                .pipe(
+                    map((forecast) => {
+                        // Save forecast in cache
+                        this.cacheService.setCache(
+                            `${zipcode}_forecast`,
+                            forecast
+                        );
+                        return forecast;
+                    })
+                );
+        }
+
+        return of(cachedForecast);
     }
 
     getCurrentConditions(zipcode: string): Observable<CurrentConditions> {

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { selectAllCurrentConditions } from 'app/store/weather/weather.selectors';
 import { WeatherState } from 'app/interfaces/weatherState.interface';
-import { CurrentConditions } from 'app/interfaces/current-conditions.type';
+import { CurrentConditions } from 'app/interfaces/currentConditions.interface';
 
 @Component({
     selector: 'app-current-conditions',

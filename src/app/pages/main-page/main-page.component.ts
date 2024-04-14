@@ -1,7 +1,7 @@
 import { Component, OnInit, Signal, signal } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { ConditionsAndZip } from 'app/interfaces/conditionsAndZip.interface';
-import { CurrentConditions } from 'app/interfaces/current-conditions.type';
+import { CurrentConditions } from 'app/interfaces/currentConditions.interface';
 import { TabInterface } from 'app/interfaces/tabs.interfaces';
 import { WeatherState } from 'app/interfaces/weatherState.interface';
 import { LocationService } from 'app/services/location.service';

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LocationsStateInterface } from 'app/interfaces/locations.interfaces';
+import { LocationsStateInterface } from 'app/interfaces/locationState.interface';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { isLocationError } from 'app/store/location/location.selectors';

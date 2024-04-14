@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { LocationsStateInterface } from 'app/interfaces/locations.interfaces';
+import { LocationsStateInterface } from 'app/interfaces/locationState.interface';
 import * as LocationActions from './location.actions';
 import { LOCATIONS } from 'app/services/location.service';
 

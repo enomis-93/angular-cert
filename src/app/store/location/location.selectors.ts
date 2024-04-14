@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { LocationsStateInterface } from 'app/interfaces/locations.interfaces';
+import { LocationsStateInterface } from 'app/interfaces/locationState.interface';
 
 export const selectLocationsfeature =
     createFeatureSelector<LocationsStateInterface>('locations');

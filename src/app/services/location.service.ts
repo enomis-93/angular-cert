@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { LocationsStateInterface } from '../interfaces/locations.interfaces';
+import { LocationsStateInterface } from '../interfaces/locationState.interface';
 import {
     addLocation,
     addLocationFail,
