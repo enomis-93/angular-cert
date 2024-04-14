@@ -1,56 +1,100 @@
 import { Injectable, Signal } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
+import {
+    catchError,
+    concatMap,
+    map,
+    mergeMap,
+    switchMap,
+    withLatestFrom
+} from 'rxjs/operators';
 import { of } from 'rxjs';
 
-import * as weatherActions from './weather.actions';
+import * as WeatherActions from './weather.actions';
 import { Store } from '@ngrx/store';
 import { WeatherService } from 'app/services/weather.service';
-import * as locationActions from '../location/location.actions';
-import * as tabsActions from '../tabs/tab.action';
+import * as LocationActions from '../location/location.actions';
+import * as TabsActions from '../tabs/tab.action';
 import { WeatherState } from 'app/interfaces/weatherState.interface';
 import { selectAllLocations } from '../location/location.selectors';
 import { selectAllCurrentConditions } from './weather.selectors';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { CacheService } from 'app/services/cache.service';
 
 @Injectable()
 export class WeatherEffects {
     constructor(
         private actions$: Actions,
         private weatherService: WeatherService,
+        private cacheService: CacheService,
         private store: Store<WeatherState>
     ) {}
 
     loadCurrentConditions$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(locationActions.addLocation), // Listen for location actions
-            withLatestFrom(this.store.select(selectAllLocations)),
-            map(([action]) => {
-                const zipcode = action.zipcode; // Extract zipcode from location action
-                return { zipcode };
-            }),
-            mergeMap(({ zipcode }) =>
-                this.weatherService.getCurrentConditions(zipcode).pipe(
-                    map((data) =>
-                        weatherActions.loadCurrentConditionsSuccess({
-                            data: [{ zipcode, data }],
-                            locationName: data.name
+            ofType(LocationActions.addLocation),
+            mergeMap(({ zipcode }) => {
+                return this.weatherService
+                    .getCachedWeatherLocationData(zipcode)
+                    .pipe(
+                        mergeMap((cachedData) => {
+                            // Check for cached data
+                            if (cachedData) {
+                                return of(
+                                    WeatherActions.loadCurrentConditionsSuccess(
+                                        {
+                                            data: [
+                                                { zipcode, data: cachedData }
+                                            ],
+                                            locationName: cachedData.name
+                                        }
+                                    )
+                                );
+                            } else {
+                                // No cached data, call API to get data
+                                return this.weatherService
+                                    .getCurrentConditions(zipcode)
+                                    .pipe(
+                                        map((data) => {
+                                            this.weatherService.cacheWeatherLocationData(
+                                                zipcode,
+                                                data
+                                            );
+                                            return WeatherActions.loadCurrentConditionsSuccess(
+                                                {
+                                                    data: [
+                                                        {
+                                                            zipcode,
+                                                            data
+                                                        }
+                                                    ],
+                                                    locationName: data.name
+                                                }
+                                            );
+                                        }),
+                                        catchError((error) =>
+                                            of(
+                                                // Set error in case of API fails
+                                                WeatherActions.loadCurrentConditionsFail(
+                                                    {
+                                                        error
+                                                    }
+                                                ),
+                                                // Set active tab
+                                                TabsActions.setActiveTab({
+                                                    index: 0
+                                                }),
+                                                // Remove zipcode from locations if fails
+                                                LocationActions.removeLocation({
+                                                    zipcode
+                                                })
+                                            )
+                                        )
+                                    );
+                            }
                         })
-                    ),
-                    catchError((error) => {
-                        return of(
-                            weatherActions.loadCurrentConditionsFail({
-                                error
-                            }),
-                            tabsActions.setActiveTab({
-                                index: 0
-                            }),
-                            // Remove zipcode from locations if fails
-                            locationActions.removeLocation({ zipcode })
-                        );
-                    })
-                )
-            )
+                    );
+            })
         )
     );
 }
