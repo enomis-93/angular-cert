@@ -41,6 +41,3 @@ export const weatherReducer = createReducer(
         };
     })
 );
-
-export const getCurrentConditions = (state: WeatherState) =>
-    state.currentConditions;

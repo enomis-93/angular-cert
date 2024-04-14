@@ -6,6 +6,7 @@ import {
     map,
     mergeMap,
     switchMap,
+    tap,
     withLatestFrom
 } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -96,5 +97,16 @@ export class WeatherEffects {
                     );
             })
         )
+    );
+
+    removeCachedLocation$ = createEffect(
+        () =>
+            this.actions$.pipe(
+                ofType(LocationActions.removeLocation),
+                tap(({ zipcode }) => {
+                    this.cacheService.removeCache(zipcode);
+                })
+            ),
+        { dispatch: false } // No need to dispatch any action cause remove cache it's a side effect
     );
 }
