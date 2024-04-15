@@ -8,7 +8,10 @@
             </div>
             <ul class="list-group">
                 <li
-                    *ngFor="let dailyForecast of forecast?.list"
+                    *ngFor="
+                        let dailyForecast of forecast?.list;
+                        trackBy: trackByIndex
+                    "
                     class="list-group-item"
                 >
                     {{ dailyForecast.dt * 1000 | date : 'EEEE, MMM d' }}:

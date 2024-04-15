@@ -1,14 +1,17 @@
-<ul class="nav nav-tabs">
-    <li
-        *ngFor="let tab of data; let i = index"
-        [class.active]="activeTabIndex === i"
-        class="flex"
-    >
-        <a (click)="selectTab(i)">{{ tab.title }}</a>
-        <span class="close" (click)="closeTab(i, data)">&times;</span>
-    </li>
-</ul>
-<ng-container *ngFor="let tab of data; let i = index">
+<div class="tabs">
+    <ul class="nav nav-tabs">
+        <li
+            *ngFor="let tab of data; trackBy: trackByIndex; let i = index"
+            [class.active]="activeTabIndex === i"
+            class="flex tab"
+            (click)="selectTab(i)"
+        >
+            <a>{{ tab.title }}</a>
+            <span class="close" (click)="closeTab(i, data)">&times;</span>
+        </li>
+    </ul>
+</div>
+<ng-container *ngFor="let tab of data; trackBy: trackByIndex; let i = index">
     <div *ngIf="activeTabIndex === i" class="tab-content">
         <!-- if not children with tabContent ref is provided, then render content in a div -->
         <div *ngIf="!tabContent">{{ tab.content }}</div>
