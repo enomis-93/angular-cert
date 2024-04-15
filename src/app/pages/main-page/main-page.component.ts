@@ -56,12 +56,12 @@ export class MainPageComponent implements OnInit {
         // Dispatch action to remove the location
         this.locationService.removeLocation(locationToRemove.content.zipcode);
 
-        this.setActiveIndex(event);
+        this.setActiveIndex(event.index);
     }
 
-    setActiveIndex(event: TabCloseEvent<CurrentConditions>) {
+    setActiveIndex(index: number) {
         // Set the the active tab index to currentConditions Array lenght minus one, cause removing a tab
-        if (event.index != this.activeTabIndex$()) {
+        if (index != this.activeTabIndex$()) {
             this.store.dispatch(
                 setActiveTab({
                     index: this.currentConditions$().length - 1
@@ -71,6 +71,10 @@ export class MainPageComponent implements OnInit {
         }
 
         //  If tab to close index is equal to active tab index set sibling tab as active
-        this.store.dispatch(setActiveTab({ index: event.index - 1 || 0 }));
+        this.store.dispatch(
+            setActiveTab({
+                index: this.currentConditions$().length > 0 ? index - 1 : 0
+            })
+        );
     }
 }

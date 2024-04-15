@@ -1,12 +1,10 @@
 import {
-    ChangeDetectionStrategy,
     Component,
     ContentChild,
     ElementRef,
     EventEmitter,
     Input,
-    Output,
-    ViewChild
+    Output
 } from '@angular/core';
 
 export interface TabCloseEvent<T> {
@@ -14,14 +12,18 @@ export interface TabCloseEvent<T> {
     data: T;
 }
 
+interface TabData<T> {
+    title: string;
+    content: T;
+}
+
 @Component({
     selector: 'app-tabs',
     templateUrl: './tabs.component.html',
-    styleUrls: ['./tabs.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./tabs.component.scss']
 })
 export class TabsComponent {
-    @Input({ required: true }) data: { title: string; content: any }[] = [];
+    @Input({ required: true }) data: TabData<any>[] = [];
     @Input() activeTabIndex: number = 0;
     @Output() tabChange = new EventEmitter<number>();
     @Output() onCloseTab = new EventEmitter<TabCloseEvent<any>>();
