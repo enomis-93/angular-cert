@@ -9,7 +9,6 @@ export class CacheService {
 
     setCache(key: string, data: any) {
         const now = new Date();
-        console.log(now.getTime());
         const item = {
             data: data,
             expiry: now.getTime() + this.expirySeconds * 1000 // expiry time in milliseconds
