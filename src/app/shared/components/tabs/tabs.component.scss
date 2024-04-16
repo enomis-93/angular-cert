@@ -19,16 +19,18 @@
         border-top: 1px solid #ddd;
         border-left: 1px solid #ddd;
         border-right: 1px solid #ddd;
+        cursor: pointer;
 
         a {
             border: none;
             color: white;
             margin-right: 0;
-            cursor: pointer;
         }
 
         .close {
+            height: 50%;
             padding: 0 3px;
+            z-index: 1;
         }
 
         &.active {
