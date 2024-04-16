@@ -1,0 +1,44 @@
+<div>
+    <div class="panel panel-default">
+        <ng-container *ngIf="!forecastError(); else error">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    5-day forecast for {{ forecast?.city.name }}
+                </h3>
+            </div>
+            <ul class="list-group">
+                <li
+                    *ngFor="
+                        let dailyForecast of forecast?.list;
+                        trackBy: trackByIndex
+                    "
+                    class="list-group-item"
+                >
+                    {{ dailyForecast.dt * 1000 | date : 'EEEE, MMM d' }}:
+                    {{ dailyForecast.weather[0].main }}
+                    - Min: {{ dailyForecast.temp.min | number : '.0-0' }} - Max:
+                    {{ dailyForecast.temp.max | number : '.0-0' }}
+
+                    <img
+                        [alt]="'weather_ico_' + dailyForecast.weather[0].id"
+                        [src]="
+                            weatherService.getWeatherIcon(
+                                dailyForecast.weather[0].id
+                            )
+                        "
+                        class="icon"
+                    />
+                </li>
+            </ul>
+        </ng-container>
+    </div>
+</div>
+<button class="btn btn-success" [routerLink]="'/'">< Back to main page</button>
+
+<!-- template to handle show error message instead of empty container in case of error retrieving forecast data -->
+<ng-template #error>
+    <p class="text-danger text-center fw-bold">
+        We're sorry, an error occured retrieving 5-day forecast
+    </p>
+    <p class="text-danger text-center fw-bold">Error: {{ forecastError() }}</p>
+</ng-template>

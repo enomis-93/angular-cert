@@ -1,0 +1,23 @@
+<div class="well">
+    <h2>Enter a zipcode:</h2>
+    <input
+        type="text"
+        #zipcode
+        placeholder="Please enter a zipcode"
+        class="form-control"
+        (keypress)="onEnterKeyDown($event)"
+    />
+
+    <br />
+    <button class="btn btn-primary" (click)="addLocation()">
+        Add location
+    </button>
+</div>
+
+<div *ngFor="let alert of alerts$ | async">
+    <app-alert
+        [message]="alert.message"
+        [alertType]="alert.type"
+        (closeAlert)="handleAlertClose(alert)"
+    ></app-alert>
+</div>

@@ -1,0 +1,15 @@
+<div class="container-fluid">
+    <app-zipcode-entry></app-zipcode-entry>
+    <app-tabs
+        [data]="tabs$ | async"
+        (tabChange)="onTabChange($event)"
+        (onCloseTab)="onCloseTab($event)"
+        [activeTabIndex]="activeTabIndex()"
+    >
+        <app-current-conditions
+            #tabContent
+            [locationData]="tabs$ | async"
+            [activeTabIndex]="activeTabIndex()"
+        ></app-current-conditions>
+    </app-tabs>
+</div>

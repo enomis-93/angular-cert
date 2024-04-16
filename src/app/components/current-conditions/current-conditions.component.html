@@ -1,0 +1,29 @@
+<ng-container *ngIf="locationData[activeTabIndex] as location">
+    <div
+        class="flex"
+        [ngStyle]="{ cursor: 'pointer' }"
+        (click)="showForecast(location.content.zipcode)"
+    >
+        <div>
+            <h3>{{ location.content.name }}</h3>
+            <h4>Current conditions: {{ location.content.weather[0].main }}</h4>
+            <h4>Temperatures today:</h4>
+            <p>
+                Current {{ location.content.main.temp | number : '.0-0' }} - Max
+                {{ location.content.main.temp_max | number : '.0-0' }} - Min
+                {{ location.content.main.temp_min | number : '.0-0' }}
+            </p>
+            <p>
+                <a [routerLink]="['/forecast', location.content.zipcode]"
+                    >Show 5-day forecast for {{ location.content.name }}</a
+                >
+            </p>
+        </div>
+        <div>
+            <img
+                alt="weather-ico"
+                [src]="getWeatherIcon(location.content.weather[0].id)"
+            />
+        </div>
+    </div>
+</ng-container>
