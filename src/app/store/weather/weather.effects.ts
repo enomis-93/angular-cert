@@ -1,26 +1,15 @@
-import { Injectable, Signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import {
-    catchError,
-    concatMap,
-    map,
-    mergeMap,
-    switchMap,
-    tap,
-    withLatestFrom
-} from 'rxjs/operators';
 import { of } from 'rxjs';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 
-import * as WeatherActions from './weather.actions';
-import { Store } from '@ngrx/store';
+import { AlertType } from 'app/enums/alertType.enum';
+import { AlertService } from 'app/services/alert.service';
+import { CacheService } from 'app/services/cache.service';
 import { WeatherService } from 'app/services/weather.service';
 import * as LocationActions from '../location/location.actions';
 import * as TabsActions from '../tabs/tab.action';
-import { WeatherState } from 'app/interfaces/weatherState.interface';
-import { selectAllLocations } from '../location/location.selectors';
-import { selectAllCurrentConditions } from './weather.selectors';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { CacheService } from 'app/services/cache.service';
+import * as WeatherActions from './weather.actions';
 
 @Injectable()
 export class WeatherEffects {
@@ -28,7 +17,7 @@ export class WeatherEffects {
         private actions$: Actions,
         private weatherService: WeatherService,
         private cacheService: CacheService,
-        private store: Store<WeatherState>
+        private alertServie: AlertService
     ) {}
 
     loadCurrentConditions$ = createEffect(() =>
@@ -73,8 +62,12 @@ export class WeatherEffects {
                                                 }
                                             );
                                         }),
-                                        catchError((error) =>
-                                            of(
+                                        catchError((error) => {
+                                            this.alertServie.addAlert(
+                                                `ZipCode ${zipcode} ${error.statusText}`,
+                                                AlertType.DANGER
+                                            );
+                                            return of(
                                                 // Set error in case of API fails
                                                 WeatherActions.loadCurrentConditionsFail(
                                                     {
@@ -89,8 +82,8 @@ export class WeatherEffects {
                                                 LocationActions.removeLocation({
                                                     zipcode
                                                 })
-                                            )
-                                        )
+                                            );
+                                        })
                                     );
                             }
                         })

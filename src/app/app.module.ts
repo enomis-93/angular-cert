@@ -1,29 +1,28 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, isDevMode } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { AppComponent } from './app.component';
-import { LocationService } from './services/location.service';
-import { ForecastsListComponent } from './components/forecasts-list/forecasts-list.component';
-import { WeatherService } from './services/weather.service';
-import { CurrentConditionsComponent } from './components/current-conditions/current-conditions.component';
-import { MainPageComponent } from './pages/main-page/main-page.component';
-import { RouterModule } from '@angular/router';
-import { routing } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { EffectsModule } from '@ngrx/effects';
-import { locationReducer } from './store/location/location.reducers';
-import { weatherReducer } from './store/weather/weather.reducers';
-import { WeatherEffects } from './store/weather/weather.effects';
+import { environment } from '../environments/environment';
+import { AppComponent } from './app.component';
+import { routing } from './app.routing';
+import { CurrentConditionsComponent } from './components/current-conditions/current-conditions.component';
+import { ForecastsListComponent } from './components/forecasts-list/forecasts-list.component';
 import { ZipcodeEntryComponent } from './components/zipcode-entry/zipcode-entry.component';
-import { TabsComponent } from './shared/components/tabs/tabs.component';
-import { tabReducer } from './store/tabs/tab.reducers';
-import { TabEffects } from './store/tabs/tab.effects';
+import { MainPageComponent } from './pages/main-page/main-page.component';
 import { CacheService } from './services/cache.service';
+import { AlertComponent } from './shared/components/alert/alert.component';
+import { TabsComponent } from './shared/components/tabs/tabs.component';
+import { locationReducer } from './store/location/location.reducers';
+import { TabEffects } from './store/tabs/tab.effects';
+import { tabReducer } from './store/tabs/tab.reducers';
+import { WeatherEffects } from './store/weather/weather.effects';
+import { weatherReducer } from './store/weather/weather.reducers';
 import { CACHE_EXPIRY_TIME } from './utils/cache-expire.token';
 
 @NgModule({
@@ -33,7 +32,8 @@ import { CACHE_EXPIRY_TIME } from './utils/cache-expire.token';
         CurrentConditionsComponent,
         MainPageComponent,
         ForecastsListComponent,
-        TabsComponent
+        TabsComponent,
+        AlertComponent
     ],
     imports: [
         BrowserModule,
@@ -57,7 +57,6 @@ import { CACHE_EXPIRY_TIME } from './utils/cache-expire.token';
         })
     ],
     providers: [
-        CacheService,
         { provide: CACHE_EXPIRY_TIME, useValue: 7200 } // Default expiry time: 2 hours
     ],
     bootstrap: [AppComponent]

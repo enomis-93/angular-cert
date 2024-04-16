@@ -1,13 +1,10 @@
-import { Component, inject, Input, OnInit, Signal } from '@angular/core';
-import { WeatherService } from '../../services/weather.service';
-import { LocationService } from '../../services/location.service';
+import { Component, inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConditionsAndZip } from 'app/interfaces/conditionsAndZip.interface';
-import { Observable } from 'rxjs';
-import { select, Store } from '@ngrx/store';
-import { selectAllCurrentConditions } from 'app/store/weather/weather.selectors';
-import { WeatherState } from 'app/interfaces/weatherState.interface';
 import { CurrentConditions } from 'app/interfaces/currentConditions.interface';
+import { TabInterface } from 'app/interfaces/tabs.interfaces';
+import { Observable } from 'rxjs';
+import { LocationService } from '../../services/location.service';
+import { WeatherService } from '../../services/weather.service';
 
 @Component({
     selector: 'app-current-conditions',
@@ -15,20 +12,20 @@ import { CurrentConditions } from 'app/interfaces/currentConditions.interface';
     styleUrls: ['./current-conditions.component.css']
 })
 export class CurrentConditionsComponent {
-    @Input() locationData: any;
+    @Input() locationData: Observable<TabInterface<CurrentConditions>[]> | [];
     @Input() activeTabIndex: number;
 
-    private weatherService = inject(WeatherService);
-    private router = inject(Router);
-    protected locationService = inject(LocationService);
+    private weatherService: WeatherService = inject(WeatherService);
+    private router: Router = inject(Router);
+    protected locationService: LocationService = inject(LocationService);
 
     constructor() {}
 
-    showForecast(zipcode: string) {
+    showForecast(zipcode: string): void {
         this.router.navigate(['/forecast', zipcode]);
     }
 
-    getWeatherIcon(iconID: number) {
+    getWeatherIcon(iconID: number): string {
         return this.weatherService.getWeatherIcon(iconID);
     }
 }

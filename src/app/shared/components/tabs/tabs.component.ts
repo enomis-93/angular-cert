@@ -6,16 +6,8 @@ import {
     Input,
     Output
 } from '@angular/core';
-
-export interface TabCloseEvent<T> {
-    index: number;
-    data: T;
-}
-
-interface TabData<T> {
-    title: string;
-    content: T;
-}
+import { TabCloseEvent } from 'app/interfaces/tabCloseEvent.interface';
+import { TabData } from 'app/interfaces/tabData.interface';
 
 @Component({
     selector: 'app-tabs',
@@ -30,15 +22,16 @@ export class TabsComponent {
 
     @ContentChild('tabContent') tabContent: ElementRef;
 
-    trackByIndex(index: number) {
+    trackByIndex(index: number): number {
         return index;
     }
 
-    selectTab(index: number, event?: Event) {
+    selectTab(index: number, event?: Event): void {
         this.tabChange.emit(index);
     }
 
-    closeTab<T>(index: number, data: T) {
-        this.onCloseTab.emit({ index, data });
+    closeTab<T>(index: number, data: T): void {
+        const previousIndex = this.activeTabIndex;
+        this.onCloseTab.emit({ index, previousIndex, data });
     }
 }

@@ -1,17 +1,16 @@
-import { Component, OnInit, Signal, signal } from '@angular/core';
+import { Component, OnInit, Signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Store, select } from '@ngrx/store';
 import { ConditionsAndZip } from 'app/interfaces/conditionsAndZip.interface';
 import { CurrentConditions } from 'app/interfaces/currentConditions.interface';
+import { TabCloseEvent } from 'app/interfaces/tabCloseEvent.interface';
 import { TabInterface } from 'app/interfaces/tabs.interfaces';
-import { WeatherState } from 'app/interfaces/weatherState.interface';
 import { LocationService } from 'app/services/location.service';
-import { TabCloseEvent } from 'app/shared/components/tabs/tabs.component';
+import { setActiveTab } from 'app/store/tabs/tab.action';
 import { selectActiveTabIndex } from 'app/store/tabs/tab.selectors';
 import { selectAllCurrentConditions } from 'app/store/weather/weather.selectors';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { setActiveTab } from 'app/store/tabs/tab.action';
 
 @Component({
     selector: 'app-main-page',
@@ -19,19 +18,21 @@ import { setActiveTab } from 'app/store/tabs/tab.action';
 })
 export class MainPageComponent implements OnInit {
     tabs$: Observable<TabInterface<CurrentConditions>[]>;
-
-    activeTabIndex$: Signal<number | null> = toSignal(
-        this.store.pipe(select(selectActiveTabIndex))
-    );
-
-    currentConditions$: Signal<ConditionsAndZip[]> = toSignal(
-        this.store.pipe(select(selectAllCurrentConditions))
-    );
+    activeTabIndex: Signal<number | null>;
+    currentConditions: Signal<ConditionsAndZip[]>;
 
     constructor(
         private store: Store,
         private locationService: LocationService
-    ) {}
+    ) {
+        this.activeTabIndex = toSignal(
+            this.store.pipe(select(selectActiveTabIndex))
+        );
+
+        this.currentConditions = toSignal(
+            this.store.pipe(select(selectAllCurrentConditions))
+        );
+    }
 
     ngOnInit(): void {
         this.tabs$ = this.store.pipe(
@@ -45,35 +46,25 @@ export class MainPageComponent implements OnInit {
         );
     }
 
-    onTabChange(index: number) {
+    onTabChange(index: number): void {
         this.store.dispatch(setActiveTab({ index }));
     }
 
-    onCloseTab(event: TabCloseEvent<CurrentConditions>) {
+    onCloseTab(event: TabCloseEvent<CurrentConditions>): void {
         const locationToRemove: TabInterface<CurrentConditions> =
             event.data[event.index];
 
         // Dispatch action to remove the location
         this.locationService.removeLocation(locationToRemove.content.zipcode);
 
-        this.setActiveIndex(event.index);
+        this.setActiveIndex(event.previousIndex);
     }
 
-    setActiveIndex(index: number) {
-        // Set the the active tab index to currentConditions Array lenght minus one, cause removing a tab
-        if (index != this.activeTabIndex$()) {
-            this.store.dispatch(
-                setActiveTab({
-                    index: this.currentConditions$().length - 1
-                })
-            );
-            return;
-        }
-
-        //  If tab to close index is equal to active tab index set sibling tab as active
+    setActiveIndex(previousIndex: number): void {
         this.store.dispatch(
             setActiveTab({
-                index: this.currentConditions$().length > 0 ? index - 1 : 0
+                index:
+                    this.currentConditions().length > 0 ? previousIndex - 1 : 0
             })
         );
     }

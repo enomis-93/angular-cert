@@ -1,8 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
-import * as weatherActions from './weather.actions';
-import * as locationActions from '../location/location.actions';
 import { WeatherState } from 'app/interfaces/weatherState.interface';
-import { isValidUSZipCode } from 'app/utils/us-zip-code.validator';
+import * as locationActions from '../location/location.actions';
+import * as weatherActions from './weather.actions';
 
 const initialState: WeatherState = {
     currentConditions: null,

@@ -1,23 +1,23 @@
 <div class="well">
     <h2>Enter a zipcode:</h2>
-    <input type="text" #zipcode placeholder="Zipcode" class="form-control" />
+    <input
+        type="text"
+        #zipcode
+        placeholder="Please enter a zipcode"
+        class="form-control"
+        (keypress)="onEnterKeyDown($event)"
+    />
 
     <br />
-    <button class="btn btn-primary" (click)="addLocation(zipcode.value)">
+    <button class="btn btn-primary" (click)="addLocation()">
         Add location
     </button>
 </div>
-<!-- Error message for Location -->
-<p
-    *ngIf="isLocationError$ | async as error"
-    [ngStyle]="{ color: 'red', fontWeight: 'bold', textAlign: 'center' }"
->
-    {{ error }}
-</p>
-<!-- Error message on loading current conditions fails -->
-<p
-    *ngIf="hasLoadCurrentConditionError$ | async as error"
-    [ngStyle]="{ color: 'red', fontWeight: 'bold', textAlign: 'center' }"
->
-    {{ error.error.message }}
-</p>
+
+<div *ngFor="let alert of alerts$ | async">
+    <app-alert
+        [message]="alert.message"
+        [alertType]="alert.type"
+        (closeAlert)="handleAlertClose(alert)"
+    ></app-alert>
+</div>

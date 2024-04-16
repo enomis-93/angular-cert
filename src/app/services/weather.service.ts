@@ -2,13 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
-import { Forecast } from '../interfaces/forecast.Interface';
+import { map } from 'rxjs/operators';
 import { CurrentConditions } from '../interfaces/currentConditions.interface';
+import { Forecast } from '../interfaces/forecast.Interface';
 import { CacheService } from './cache.service';
-import { catchError, map, tap } from 'rxjs/operators';
-import { ConditionsAndZip } from 'app/interfaces/conditionsAndZip.interface';
-import * as WeatherActions from '../store/weather/weather.actions';
-import { Store } from '@ngrx/store';
 
 @Injectable({
     providedIn: 'root'
@@ -19,11 +16,7 @@ export class WeatherService {
     static readonly ICON_URL =
         'https://raw.githubusercontent.com/udacity/Sunshine-Version-2/sunshine_master/app/src/main/res/drawable-hdpi/';
 
-    constructor(
-        public http: HttpClient,
-        private cacheService: CacheService,
-        private store: Store
-    ) {}
+    constructor(public http: HttpClient, private cacheService: CacheService) {}
 
     getForecast(zipcode: string): Observable<Forecast> {
         const cachedForecast: Forecast = this.cacheService.getCache(
@@ -58,8 +51,9 @@ export class WeatherService {
 
     getCachedWeatherLocationData(
         zipcode: string
-    ): Observable<CurrentConditions> {
-        const cachedData = this.cacheService.getCache(zipcode);
+    ): Observable<CurrentConditions | null> {
+        const cachedData =
+            this.cacheService.getCache<CurrentConditions>(zipcode);
         if (cachedData) {
             // If data is available in cache, return it
             return of(cachedData);
@@ -70,7 +64,7 @@ export class WeatherService {
     }
 
     // Function to update weather data for a location
-    cacheWeatherLocationData(zipcode: string, data: CurrentConditions) {
+    cacheWeatherLocationData(zipcode: string, data: CurrentConditions): void {
         if (!data) {
             return;
         }

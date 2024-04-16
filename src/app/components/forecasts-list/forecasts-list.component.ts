@@ -34,7 +34,7 @@ export class ForecastsListComponent implements OnInit {
         });
     }
 
-    trackByIndex(index: number) {
+    trackByIndex(index: number): number {
         return index;
     }
 }

@@ -1,15 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Store, select } from '@ngrx/store';
+import { AlertType } from 'app/enums/alertType.enum';
+import { hasLoadCurrentConditionsFail } from 'app/store/weather/weather.selectors';
 import { LocationsStateInterface } from '../interfaces/locationState.interface';
 import {
     addLocation,
     addLocationFail,
     removeLocation
 } from '../store/location/location.actions';
-import { Observable } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop';
+import {
+    isLocationError,
+    selectAllLocations
+} from '../store/location/location.selectors';
 import { isValidUSZipCode } from '../utils/us-zip-code.validator';
-import { selectAllLocations } from '../store/location/location.selectors';
+import { AlertService } from './alert.service';
 
 export const LOCATIONS: string = 'locations';
 
@@ -17,13 +22,22 @@ export const LOCATIONS: string = 'locations';
     providedIn: 'root'
 })
 export class LocationService {
-    locations$: Observable<string[]> = this.store.pipe(
-        select(selectAllLocations)
+    locations: Signal<string[]> = toSignal(
+        this.store.pipe(select(selectAllLocations))
     );
 
-    locations = toSignal(this.locations$);
+    locationError: Signal<string> = toSignal(
+        this.store.pipe(select(isLocationError))
+    );
 
-    constructor(private store: Store<{ locations: LocationsStateInterface }>) {
+    loadWeatherError: Signal<string> = toSignal(
+        this.store.pipe(select(hasLoadCurrentConditionsFail))
+    );
+
+    constructor(
+        private store: Store<{ locations: LocationsStateInterface }>,
+        private alertService: AlertService
+    ) {
         let storedLocations = localStorage.getItem(LOCATIONS);
         if (storedLocations) {
             for (let loc of JSON.parse(storedLocations)) {
@@ -32,7 +46,7 @@ export class LocationService {
         }
     }
 
-    addLocation(zipcode: string) {
+    addLocation(zipcode: string): void {
         // Validate Zip Code
         if (!isValidUSZipCode(zipcode)) {
             this.store.dispatch(
@@ -43,15 +57,34 @@ export class LocationService {
         // Check if zipcode already exist
         if (this.locations().includes(zipcode)) {
             this.store.dispatch(
-                addLocationFail({ error: 'Zip Code Already Exist!' })
+                addLocationFail({
+                    error: `Zip Code ${zipcode} Already Exist !`
+                })
             );
+            // Show alert message
+            this.alertService.addAlert(this.locationError(), AlertType.DANGER);
             return;
         }
 
         this.store.dispatch(addLocation({ zipcode }));
+
+        // Workaround, cause the weather error is async
+        setTimeout(() => {
+            if (!this.loadWeatherError()) {
+                this.alertService.addAlert(
+                    `Zip Code ${zipcode} inserted successfully !`,
+                    AlertType.SUCCESS
+                );
+            }
+        }, 500);
     }
 
-    removeLocation(zipcode: string) {
+    removeLocation(zipcode: string): void {
         this.store.dispatch(removeLocation({ zipcode }));
+
+        this.alertService.addAlert(
+            `ZipCode ${zipcode} removed successfully !`,
+            AlertType.SUCCESS
+        );
     }
 }
