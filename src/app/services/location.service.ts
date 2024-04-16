@@ -49,6 +49,11 @@ export class LocationService {
     addLocation(zipcode: string): void {
         // Validate Zip Code
         if (!isValidUSZipCode(zipcode)) {
+            this.alertService.addAlert(
+                "You've entered an invalid US zipcode !",
+                AlertType.DANGER
+            );
+
             this.store.dispatch(
                 addLocationFail({ error: 'Invalid US Zip Code' })
             );
@@ -61,8 +66,11 @@ export class LocationService {
                     error: `Zip Code ${zipcode} Already Exist !`
                 })
             );
+            this.alertService.addAlert(
+                `Zip Code ${zipcode} Already Exist !`,
+                AlertType.DANGER
+            );
             // Show alert message
-            this.alertService.addAlert(this.locationError(), AlertType.DANGER);
             return;
         }
 
