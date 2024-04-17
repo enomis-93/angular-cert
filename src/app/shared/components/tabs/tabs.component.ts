@@ -36,6 +36,9 @@ export class TabsComponent {
     }
 
     closeTab(index: number, data: TabContent): void {
+        this.activeTabIndex.set(
+            this.activeTabIndex() > 0 ? this.activeTabIndex() - 1 : 0
+        );
         const previousIndex = this.activeTabIndex();
         this.onCloseTab.emit({ index, previousIndex, data });
     }

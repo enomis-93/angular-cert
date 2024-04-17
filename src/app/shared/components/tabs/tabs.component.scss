@@ -13,6 +13,8 @@
     white-space: nowrap;
 
     li {
+        padding: 0em 0.5em;
+        position: relative;
         background-color: #588bb8;
         border-radius: 4px 4px 0 0;
         margin-right: 3px;
@@ -28,9 +30,10 @@
         }
 
         .close {
-            height: 50%;
+            right: 0;
+            position: absolute;
             padding: 0 3px;
-            z-index: 1;
+            z-index: 9999;
         }
 
         &.active {
