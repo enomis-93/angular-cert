@@ -24,14 +24,16 @@ import { map } from 'rxjs/operators';
 })
 export class MainPageComponent implements OnInit {
     tabs$: Observable<TabData<CurrentConditions>[]>;
-    activeTabIndex: WritableSignal<number> = signal(0);
+    activeTabIndex: Signal<number>;
     currentConditions: Signal<ConditionsAndZip[]>;
 
     constructor(
         private store: Store,
         private locationService: LocationService
     ) {
-        this.initActiveTabIndex();
+        this.activeTabIndex = toSignal(
+            this.store.pipe(select(selectActiveTabIndex))
+        );
         this.currentConditions = toSignal(
             this.store.pipe(select(selectAllCurrentConditions))
         );
@@ -50,7 +52,6 @@ export class MainPageComponent implements OnInit {
     }
 
     onTabChange(index: number): void {
-        this.activeTabIndex.set(index);
         this.store.dispatch(setActiveTab({ index }));
     }
 
@@ -60,19 +61,12 @@ export class MainPageComponent implements OnInit {
 
         // Dispatch action to remove the location
         this.locationService.removeLocation(locationToRemove.content.zipcode);
-
         this.setActiveIndex(event.previousIndex);
     }
 
-    initActiveTabIndex(): void {
-        const activeTabIndex: Signal<number> = toSignal(
-            this.store.pipe(select(selectActiveTabIndex))
-        );
-
-        this.activeTabIndex.set(activeTabIndex());
-    }
-
     setActiveIndex(previousIndex: number): void {
+        previousIndex = previousIndex > 0 ? previousIndex : 0;
+
         this.store.dispatch(
             setActiveTab({
                 index:
