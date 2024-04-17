@@ -31,6 +31,9 @@ export class MainPageComponent implements OnInit {
         private store: Store,
         private locationService: LocationService
     ) {
+        // Reset Active tab in the store
+        this.store.dispatch(setActiveTab({ index: 0 }));
+
         this.activeTabIndex = toSignal(
             this.store.pipe(select(selectActiveTabIndex))
         );
@@ -61,17 +64,5 @@ export class MainPageComponent implements OnInit {
 
         // Dispatch action to remove the location
         this.locationService.removeLocation(locationToRemove.content.zipcode);
-        this.setActiveIndex(event.previousIndex);
-    }
-
-    setActiveIndex(previousIndex: number): void {
-        previousIndex = previousIndex > 0 ? previousIndex : 0;
-
-        this.store.dispatch(
-            setActiveTab({
-                index:
-                    this.currentConditions().length > 0 ? previousIndex - 1 : 0
-            })
-        );
     }
 }
