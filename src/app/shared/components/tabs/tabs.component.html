@@ -2,7 +2,7 @@
     <ul class="nav nav-tabs">
         <li
             *ngFor="let tab of data; trackBy: trackByIndex; let i = index"
-            [class.active]="activeTabIndex === i"
+            [class.active]="activeTabIndex() === i"
             class="flex tab"
             (click)="selectTab(i)"
         >
@@ -12,7 +12,7 @@
     </ul>
 </div>
 <ng-container *ngFor="let tab of data; trackBy: trackByIndex; let i = index">
-    <div *ngIf="activeTabIndex === i" class="tab-content">
+    <div *ngIf="activeTabIndex() === i" class="tab-content">
         <!-- if not children with tabContent ref is provided, then render content in a div -->
         <div *ngIf="!tabContent">{{ tab.content }}</div>
         <ng-content></ng-content>

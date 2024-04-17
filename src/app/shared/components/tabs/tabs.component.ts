@@ -4,7 +4,9 @@ import {
     ElementRef,
     EventEmitter,
     Input,
-    Output
+    Output,
+    WritableSignal,
+    signal
 } from '@angular/core';
 import { TabCloseEvent } from 'app/interfaces/tabCloseEvent.interface';
 import { TabContent } from 'app/interfaces/tabContent.interface';
@@ -17,22 +19,24 @@ import { TabData } from 'app/interfaces/tabData.interface';
 })
 export class TabsComponent {
     @Input({ required: true }) data: TabData<TabContent>[] = [];
-    @Input() activeTabIndex: number = 0;
     @Output() tabChange = new EventEmitter<number>();
     @Output() onCloseTab = new EventEmitter<TabCloseEvent<TabContent>>();
 
     @ContentChild('tabContent') tabContent: ElementRef;
+
+    activeTabIndex: WritableSignal<number> = signal(0);
 
     trackByIndex(index: number): number {
         return index;
     }
 
     selectTab(index: number, event?: Event): void {
+        this.activeTabIndex.set(index);
         this.tabChange.emit(index);
     }
 
     closeTab(index: number, data: TabContent): void {
-        const previousIndex = this.activeTabIndex;
+        const previousIndex = this.activeTabIndex();
         this.onCloseTab.emit({ index, previousIndex, data });
     }
 }

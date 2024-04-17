@@ -4,7 +4,6 @@
         [data]="tabs$ | async"
         (tabChange)="onTabChange($event)"
         (onCloseTab)="onCloseTab($event)"
-        [activeTabIndex]="activeTabIndex()"
     >
         <app-current-conditions
             #tabContent
