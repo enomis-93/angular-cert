@@ -19,7 +19,7 @@ export class TabsComponent {
     @Input({ required: true }) data: TabData<TabContent>[] = [];
     @Input() activeTabIndex: number = 0;
     @Output() tabChange = new EventEmitter<number>();
-    @Output() onCloseTab = new EventEmitter<TabCloseEvent<any>>();
+    @Output() onCloseTab = new EventEmitter<TabCloseEvent<TabContent>>();
 
     @ContentChild('tabContent') tabContent: ElementRef;
 
@@ -31,7 +31,7 @@ export class TabsComponent {
         this.tabChange.emit(index);
     }
 
-    closeTab<T>(index: number, data: T): void {
+    closeTab(index: number, data: TabContent): void {
         const previousIndex = this.activeTabIndex;
         this.onCloseTab.emit({ index, previousIndex, data });
     }
