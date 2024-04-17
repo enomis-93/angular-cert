@@ -1,10 +1,10 @@
 import { Component, inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { CurrentConditions } from 'app/interfaces/currentConditions.interface';
-import { TabInterface } from 'app/interfaces/tabs.interfaces';
 import { Observable } from 'rxjs';
 import { LocationService } from '../../services/location.service';
 import { WeatherService } from '../../services/weather.service';
+import { TabData } from 'app/interfaces/tabData.interface';
 
 @Component({
     selector: 'app-current-conditions',
@@ -12,7 +12,7 @@ import { WeatherService } from '../../services/weather.service';
     styleUrls: ['./current-conditions.component.css']
 })
 export class CurrentConditionsComponent {
-    @Input() locationData: Observable<TabInterface<CurrentConditions>[]> | [];
+    @Input() locationData: Observable<TabData<CurrentConditions>[]> | [];
     @Input() activeTabIndex: number;
 
     private weatherService: WeatherService = inject(WeatherService);

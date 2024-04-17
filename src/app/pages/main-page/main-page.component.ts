@@ -4,7 +4,7 @@ import { Store, select } from '@ngrx/store';
 import { ConditionsAndZip } from 'app/interfaces/conditionsAndZip.interface';
 import { CurrentConditions } from 'app/interfaces/currentConditions.interface';
 import { TabCloseEvent } from 'app/interfaces/tabCloseEvent.interface';
-import { TabInterface } from 'app/interfaces/tabs.interfaces';
+import { TabData } from 'app/interfaces/tabData.interface';
 import { LocationService } from 'app/services/location.service';
 import { setActiveTab } from 'app/store/tabs/tab.action';
 import { selectActiveTabIndex } from 'app/store/tabs/tab.selectors';
@@ -17,7 +17,7 @@ import { map } from 'rxjs/operators';
     templateUrl: './main-page.component.html'
 })
 export class MainPageComponent implements OnInit {
-    tabs$: Observable<TabInterface<CurrentConditions>[]>;
+    tabs$: Observable<TabData<CurrentConditions>[]>;
     activeTabIndex: Signal<number | null>;
     currentConditions: Signal<ConditionsAndZip[]>;
 
@@ -51,7 +51,7 @@ export class MainPageComponent implements OnInit {
     }
 
     onCloseTab(event: TabCloseEvent<CurrentConditions>): void {
-        const locationToRemove: TabInterface<CurrentConditions> =
+        const locationToRemove: TabData<CurrentConditions> =
             event.data[event.index];
 
         // Dispatch action to remove the location

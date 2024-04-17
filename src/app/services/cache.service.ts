@@ -7,7 +7,7 @@ import { CACHE_EXPIRY_TIME } from 'app/utils/cache-expire.token';
 export class CacheService {
     constructor(@Inject(CACHE_EXPIRY_TIME) private expirySeconds: number) {}
 
-    setCache(key: string, data: any): void {
+    setCache<T>(key: string, data: T): void {
         const now = new Date();
         const item = {
             data: data,

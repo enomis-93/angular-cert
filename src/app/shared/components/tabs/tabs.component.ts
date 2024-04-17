@@ -7,6 +7,7 @@ import {
     Output
 } from '@angular/core';
 import { TabCloseEvent } from 'app/interfaces/tabCloseEvent.interface';
+import { TabContent } from 'app/interfaces/tabContent.interface';
 import { TabData } from 'app/interfaces/tabData.interface';
 
 @Component({
@@ -15,7 +16,7 @@ import { TabData } from 'app/interfaces/tabData.interface';
     styleUrls: ['./tabs.component.scss']
 })
 export class TabsComponent {
-    @Input({ required: true }) data: TabData<any>[] = [];
+    @Input({ required: true }) data: TabData<TabContent>[] = [];
     @Input() activeTabIndex: number = 0;
     @Output() tabChange = new EventEmitter<number>();
     @Output() onCloseTab = new EventEmitter<TabCloseEvent<any>>();

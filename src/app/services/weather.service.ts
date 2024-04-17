@@ -31,7 +31,7 @@ export class WeatherService {
                 .pipe(
                     map((forecast) => {
                         // Save forecast in cache
-                        this.cacheService.setCache(
+                        this.cacheService.setCache<Forecast>(
                             `${zipcode}_forecast`,
                             forecast
                         );
@@ -68,7 +68,7 @@ export class WeatherService {
         if (!data) {
             return;
         }
-        this.cacheService.setCache(zipcode, data);
+        this.cacheService.setCache<CurrentConditions>(zipcode, data);
     }
 
     getWeatherIcon(id: number): string {
