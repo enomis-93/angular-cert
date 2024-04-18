@@ -5,9 +5,7 @@ import { Alert } from 'app/interfaces/alert.interface';
 import { LocationsStateInterface } from 'app/interfaces/locationState.interface';
 import { AlertService } from 'app/services/alert.service';
 import { LocationService } from 'app/services/location.service';
-import { addLocationFail } from 'app/store/location/location.actions';
 import { isLocationError } from 'app/store/location/location.selectors';
-import { loadCurrentConditionsFail } from 'app/store/weather/weather.actions';
 import { hasLoadCurrentConditionsFail } from 'app/store/weather/weather.selectors';
 import { Observable } from 'rxjs';
 

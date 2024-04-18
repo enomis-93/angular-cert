@@ -3,7 +3,7 @@
     <app-tabs
         [data]="tabs$ | async"
         (tabChange)="onTabChange($event)"
-        (onCloseTab)="onCloseTab($event)"
+        (tabClose)="onCloseTab($event)"
     >
         <app-current-conditions
             #tabContent

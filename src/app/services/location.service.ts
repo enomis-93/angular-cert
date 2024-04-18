@@ -38,9 +38,9 @@ export class LocationService {
         private store: Store<{ locations: LocationsStateInterface }>,
         private alertService: AlertService
     ) {
-        let storedLocations = localStorage.getItem(LOCATIONS);
+        const storedLocations = localStorage.getItem(LOCATIONS);
         if (storedLocations) {
-            for (let loc of JSON.parse(storedLocations)) {
+            for (const loc of JSON.parse(storedLocations)) {
                 this.store.dispatch(addLocation({ zipcode: loc }));
             }
         }

@@ -1,6 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
 import * as TabActions from './tab.action';
-import * as LocationActions from '../location/location.actions';
 
 const initialState: number = 0;
 
