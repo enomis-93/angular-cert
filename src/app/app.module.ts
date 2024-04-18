@@ -15,7 +15,6 @@ import { CurrentConditionsComponent } from './components/current-conditions/curr
 import { ForecastsListComponent } from './components/forecasts-list/forecasts-list.component';
 import { ZipcodeEntryComponent } from './components/zipcode-entry/zipcode-entry.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
-import { CacheService } from './services/cache.service';
 import { AlertComponent } from './shared/components/alert/alert.component';
 import { TabsComponent } from './shared/components/tabs/tabs.component';
 import { locationReducer } from './store/location/location.reducers';

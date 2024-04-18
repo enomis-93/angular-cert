@@ -26,7 +26,7 @@ export const locationReducer = createReducer(
         const index = state.locations.indexOf(zipcode);
 
         if (index > -1) {
-            let locations: string[] = [
+            const locations: string[] = [
                 ...state.locations.slice(0, index),
                 ...state.locations.slice(index + 1)
             ];

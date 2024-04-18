@@ -20,7 +20,7 @@ import { TabData } from 'app/interfaces/tabData.interface';
 export class TabsComponent {
     @Input({ required: true }) data: TabData<TabContent>[] = [];
     @Output() tabChange = new EventEmitter<number>();
-    @Output() onCloseTab = new EventEmitter<TabCloseEvent<TabContent>>();
+    @Output() tabClose = new EventEmitter<TabCloseEvent<TabContent>>();
 
     @ContentChild('tabContent') tabContent: ElementRef;
 
@@ -30,7 +30,7 @@ export class TabsComponent {
         return index;
     }
 
-    selectTab(index: number, event?: Event): void {
+    selectTab(index: number): void {
         this.activeTabIndex.set(index);
         this.tabChange.emit(index);
     }
@@ -40,6 +40,6 @@ export class TabsComponent {
             this.activeTabIndex() > 0 ? this.activeTabIndex() - 1 : 0
         );
         const previousIndex = this.activeTabIndex();
-        this.onCloseTab.emit({ index, previousIndex, data });
+        this.tabClose.emit({ index, previousIndex, data });
     }
 }

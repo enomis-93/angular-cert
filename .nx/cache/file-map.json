@@ -1,0 +1,418 @@
+{
+  "version": "6.0",
+  "nxVersion": "18.3.1",
+  "deps": {
+    "@angular/common": "^17.0.6",
+    "@angular/compiler": "^17.0.6",
+    "@angular/core": "^17.0.6",
+    "@angular/forms": "^17.0.6",
+    "@angular/platform-browser": "^17.0.6",
+    "@angular/platform-browser-dynamic": "^17.0.6",
+    "@angular/router": "^17.0.6",
+    "@angular/service-worker": "17.0.6",
+    "@ngrx/effects": "^17.1.1",
+    "@ngrx/store": "^17.1.1",
+    "@ngrx/store-devtools": "^17.1.1",
+    "body-parser": "^1.19.0",
+    "bootstrap": "^3.4.1",
+    "core-js": "^2.6.9",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "rxjs": "6.5.4",
+    "tslib": "^2.0.0",
+    "web-push": "^3.3.5",
+    "zone.js": "~0.14.2",
+    "@angular-devkit/build-angular": "^17.0.6",
+    "@angular-eslint/builder": "17.3.0",
+    "@angular-eslint/eslint-plugin": "17.3.0",
+    "@angular-eslint/eslint-plugin-template": "17.3.0",
+    "@angular-eslint/schematics": "17.3.0",
+    "@angular-eslint/template-parser": "17.3.0",
+    "@angular/cli": "^17.0.6",
+    "@angular/compiler-cli": "^17.0.6",
+    "@types/jasmine": "~3.6.0",
+    "@types/node": "^6.14.6",
+    "@typescript-eslint/eslint-plugin": "7.2.0",
+    "@typescript-eslint/parser": "7.2.0",
+    "blue-harvest": "^0.2.1",
+    "eslint": "^8.57.0",
+    "jasmine": "~2.6.0",
+    "jasmine-core": "~3.6.0",
+    "jasmine-spec-reporter": "~5.0.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-cli": "~1.0.1",
+    "karma-jasmine": "~4.0.0",
+    "protractor": "^7.0.0",
+    "ts-node": "5.0.1",
+    "tslint": "~6.1.0",
+    "typescript": "5.2.2"
+  },
+  "pathMappings": {},
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "projectFileMap": {},
+    "nonProjectFiles": [
+      {
+        "file": ".gitignore",
+        "hash": "18419162515908296230"
+      },
+      {
+        "file": ".vscode/launch.json",
+        "hash": "8938714645398943872"
+      },
+      {
+        "file": "Jenkinsfile",
+        "hash": "7009083272065983094"
+      },
+      {
+        "file": "README.md",
+        "hash": "1949403158756845622"
+      },
+      {
+        "file": "angular.json",
+        "hash": "11862344977579727847"
+      },
+      {
+        "file": "e2e/app.e2e-spec.ts",
+        "hash": "12533414922509744102"
+      },
+      {
+        "file": "e2e/app.po.ts",
+        "hash": "9448429488793600048"
+      },
+      {
+        "file": "e2e/screenshot.png",
+        "hash": "15772479580016670825"
+      },
+      {
+        "file": "e2e/tsconfig.e2e.json",
+        "hash": "505692660228572475"
+      },
+      {
+        "file": "index.html",
+        "hash": "4577494060243245656"
+      },
+      {
+        "file": "karma.conf.js",
+        "hash": "7059136859356647607"
+      },
+      {
+        "file": "ngsw-config.json",
+        "hash": "13811214078469773820"
+      },
+      {
+        "file": "package-lock.json",
+        "hash": "7583531252882957549"
+      },
+      {
+        "file": "package.json",
+        "hash": "8833936797033438201"
+      },
+      {
+        "file": "protractor.conf.js",
+        "hash": "15336253877434797988"
+      },
+      {
+        "file": "push-server.js",
+        "hash": "6968327459095541085"
+      },
+      {
+        "file": "src/app/app.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/app.component.html",
+        "hash": "17385897758380840601"
+      },
+      {
+        "file": "src/app/app.component.ts",
+        "hash": "7252096288896943236"
+      },
+      {
+        "file": "src/app/app.module.ts",
+        "hash": "11571869289760436900"
+      },
+      {
+        "file": "src/app/app.routing.ts",
+        "hash": "4517322038805377999"
+      },
+      {
+        "file": "src/app/components/current-conditions/current-conditions.component.css",
+        "hash": "5306958132938674486"
+      },
+      {
+        "file": "src/app/components/current-conditions/current-conditions.component.html",
+        "hash": "18124220432503068897"
+      },
+      {
+        "file": "src/app/components/current-conditions/current-conditions.component.ts",
+        "hash": "13782208749763143629"
+      },
+      {
+        "file": "src/app/components/forecasts-list/forecasts-list.component.css",
+        "hash": "5157144631996485880"
+      },
+      {
+        "file": "src/app/components/forecasts-list/forecasts-list.component.html",
+        "hash": "5439496280508607098"
+      },
+      {
+        "file": "src/app/components/forecasts-list/forecasts-list.component.ts",
+        "hash": "8749064167497239392"
+      },
+      {
+        "file": "src/app/components/zipcode-entry/zipcode-entry.component.html",
+        "hash": "3329563568726434270"
+      },
+      {
+        "file": "src/app/components/zipcode-entry/zipcode-entry.component.ts",
+        "hash": "11359194620590049746"
+      },
+      {
+        "file": "src/app/enums/alertType.enum.ts",
+        "hash": "11453858187891635564"
+      },
+      {
+        "file": "src/app/interfaces/alert.interface.ts",
+        "hash": "453505303686622074"
+      },
+      {
+        "file": "src/app/interfaces/conditionsAndZip.interface.ts",
+        "hash": "9601612132112388866"
+      },
+      {
+        "file": "src/app/interfaces/currentConditions.interface.ts",
+        "hash": "6253822199762038789"
+      },
+      {
+        "file": "src/app/interfaces/forecast.Interface.ts",
+        "hash": "16602992826781416570"
+      },
+      {
+        "file": "src/app/interfaces/locationState.interface.ts",
+        "hash": "362770595254112105"
+      },
+      {
+        "file": "src/app/interfaces/tabCloseEvent.interface.ts",
+        "hash": "3937035648971320139"
+      },
+      {
+        "file": "src/app/interfaces/tabContent.interface.ts",
+        "hash": "729459465499861542"
+      },
+      {
+        "file": "src/app/interfaces/tabData.interface.ts",
+        "hash": "11389455738256477058"
+      },
+      {
+        "file": "src/app/interfaces/weatherState.interface.ts",
+        "hash": "8413422973966328210"
+      },
+      {
+        "file": "src/app/pages/main-page/main-page.component.html",
+        "hash": "13748351764363258168"
+      },
+      {
+        "file": "src/app/pages/main-page/main-page.component.ts",
+        "hash": "4173578662622189234"
+      },
+      {
+        "file": "src/app/services/alert.service.ts",
+        "hash": "12861499567433760406"
+      },
+      {
+        "file": "src/app/services/cache.service.ts",
+        "hash": "6858898287840188344"
+      },
+      {
+        "file": "src/app/services/location.service.ts",
+        "hash": "15294357235163381197"
+      },
+      {
+        "file": "src/app/services/weather.service.ts",
+        "hash": "3382812963601546155"
+      },
+      {
+        "file": "src/app/shared/components/alert/alert.component.html",
+        "hash": "1028470893720467070"
+      },
+      {
+        "file": "src/app/shared/components/alert/alert.component.ts",
+        "hash": "9871342071506934599"
+      },
+      {
+        "file": "src/app/shared/components/tabs/tabs.component.html",
+        "hash": "14655781641391536124"
+      },
+      {
+        "file": "src/app/shared/components/tabs/tabs.component.scss",
+        "hash": "5448221652088337483"
+      },
+      {
+        "file": "src/app/shared/components/tabs/tabs.component.ts",
+        "hash": "9499817624901445890"
+      },
+      {
+        "file": "src/app/store/location/location.actions.ts",
+        "hash": "14143932027738273492"
+      },
+      {
+        "file": "src/app/store/location/location.reducers.ts",
+        "hash": "126301249416078165"
+      },
+      {
+        "file": "src/app/store/location/location.selectors.ts",
+        "hash": "3230259189638885384"
+      },
+      {
+        "file": "src/app/store/tabs/tab.action.ts",
+        "hash": "11254711430478895414"
+      },
+      {
+        "file": "src/app/store/tabs/tab.effects.ts",
+        "hash": "1681857659144174756"
+      },
+      {
+        "file": "src/app/store/tabs/tab.reducers.ts",
+        "hash": "14041384769651338553"
+      },
+      {
+        "file": "src/app/store/tabs/tab.selectors.ts",
+        "hash": "8842685521001787879"
+      },
+      {
+        "file": "src/app/store/weather/weather.actions.ts",
+        "hash": "7294605632660530024"
+      },
+      {
+        "file": "src/app/store/weather/weather.effects.ts",
+        "hash": "7682770971155683152"
+      },
+      {
+        "file": "src/app/store/weather/weather.reducers.ts",
+        "hash": "2816553687254734796"
+      },
+      {
+        "file": "src/app/store/weather/weather.selectors.ts",
+        "hash": "15835399751635383404"
+      },
+      {
+        "file": "src/app/utils/cache-expire.token.ts",
+        "hash": "1360851468921599723"
+      },
+      {
+        "file": "src/app/utils/us-zip-code.validator.ts",
+        "hash": "2884049734777364096"
+      },
+      {
+        "file": "src/assets/.gitkeep",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/assets/icons/icon-128x128.png",
+        "hash": "17671696321108738596"
+      },
+      {
+        "file": "src/assets/icons/icon-144x144.png",
+        "hash": "1287423168146181827"
+      },
+      {
+        "file": "src/assets/icons/icon-152x152.png",
+        "hash": "6144623034144446480"
+      },
+      {
+        "file": "src/assets/icons/icon-192x192.png",
+        "hash": "18027183120006364010"
+      },
+      {
+        "file": "src/assets/icons/icon-384x384.png",
+        "hash": "1606610030968857797"
+      },
+      {
+        "file": "src/assets/icons/icon-512x512.png",
+        "hash": "14979126792470453700"
+      },
+      {
+        "file": "src/assets/icons/icon-72x72.png",
+        "hash": "14183121334185693410"
+      },
+      {
+        "file": "src/assets/icons/icon-96x96.png",
+        "hash": "15959379915136484649"
+      },
+      {
+        "file": "src/assets/styles/scrollbar.scss",
+        "hash": "8572856224957155984"
+      },
+      {
+        "file": "src/assets/weather.json",
+        "hash": "16142278286276816190"
+      },
+      {
+        "file": "src/environments/environment.prod.ts",
+        "hash": "11847377846594200203"
+      },
+      {
+        "file": "src/environments/environment.ts",
+        "hash": "12766440196102361703"
+      },
+      {
+        "file": "src/favicon.ico",
+        "hash": "14356862334585494759"
+      },
+      {
+        "file": "src/index.html",
+        "hash": "2327375496861442867"
+      },
+      {
+        "file": "src/main.ts",
+        "hash": "9150150626324413923"
+      },
+      {
+        "file": "src/manifest.json",
+        "hash": "17377466072444032728"
+      },
+      {
+        "file": "src/polyfills.ts",
+        "hash": "15847750231674998412"
+      },
+      {
+        "file": "src/styles.css",
+        "hash": "1860638926115770146"
+      },
+      {
+        "file": "src/test.ts",
+        "hash": "15828610324098623801"
+      },
+      {
+        "file": "src/tsconfig.app.json",
+        "hash": "8898238103924799294"
+      },
+      {
+        "file": "src/tsconfig.spec.json",
+        "hash": "10926334331697431873"
+      },
+      {
+        "file": "src/typings.d.ts",
+        "hash": "11920044368433479196"
+      },
+      {
+        "file": "styles.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "tsconfig.json",
+        "hash": "7309530496645314478"
+      },
+      {
+        "file": "tslint.json",
+        "hash": "5966986985439825384"
+      },
+      {
+        "file": "typings.json",
+        "hash": "8530538498703749215"
+      }
+    ]
+  }
+}

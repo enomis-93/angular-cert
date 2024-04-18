@@ -1,10 +1,4 @@
-import {
-    Component,
-    OnInit,
-    Signal,
-    WritableSignal,
-    signal
-} from '@angular/core';
+import { Component, OnInit, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store, select } from '@ngrx/store';
 import { ConditionsAndZip } from 'app/interfaces/conditionsAndZip.interface';
