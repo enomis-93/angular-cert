@@ -54,6 +54,10 @@
     "projectFileMap": {},
     "nonProjectFiles": [
       {
+        "file": ".eslintrc.json",
+        "hash": "3857973717406531692"
+      },
+      {
         "file": ".gitignore",
         "hash": "18419162515908296230"
       },
@@ -71,11 +75,11 @@
       },
       {
         "file": "angular.json",
-        "hash": "11862344977579727847"
+        "hash": "995480291727647740"
       },
       {
         "file": "e2e/app.e2e-spec.ts",
-        "hash": "12533414922509744102"
+        "hash": "14713881514961244312"
       },
       {
         "file": "e2e/app.po.ts",
@@ -103,11 +107,11 @@
       },
       {
         "file": "package-lock.json",
-        "hash": "7583531252882957549"
+        "hash": "14053759056344699235"
       },
       {
         "file": "package.json",
-        "hash": "8833936797033438201"
+        "hash": "2845142835030135064"
       },
       {
         "file": "protractor.conf.js",
@@ -131,7 +135,7 @@
       },
       {
         "file": "src/app/app.module.ts",
-        "hash": "11571869289760436900"
+        "hash": "13703095684241996917"
       },
       {
         "file": "src/app/app.routing.ts",
@@ -167,7 +171,7 @@
       },
       {
         "file": "src/app/components/zipcode-entry/zipcode-entry.component.ts",
-        "hash": "11359194620590049746"
+        "hash": "3297360924520613670"
       },
       {
         "file": "src/app/enums/alertType.enum.ts",
@@ -211,11 +215,11 @@
       },
       {
         "file": "src/app/pages/main-page/main-page.component.html",
-        "hash": "13748351764363258168"
+        "hash": "15661287521206377961"
       },
       {
         "file": "src/app/pages/main-page/main-page.component.ts",
-        "hash": "4173578662622189234"
+        "hash": "6643942011653221807"
       },
       {
         "file": "src/app/services/alert.service.ts",
@@ -227,7 +231,7 @@
       },
       {
         "file": "src/app/services/location.service.ts",
-        "hash": "15294357235163381197"
+        "hash": "937496574038496136"
       },
       {
         "file": "src/app/services/weather.service.ts",
@@ -239,7 +243,7 @@
       },
       {
         "file": "src/app/shared/components/alert/alert.component.ts",
-        "hash": "9871342071506934599"
+        "hash": "16053880872319424795"
       },
       {
         "file": "src/app/shared/components/tabs/tabs.component.html",
@@ -251,7 +255,7 @@
       },
       {
         "file": "src/app/shared/components/tabs/tabs.component.ts",
-        "hash": "9499817624901445890"
+        "hash": "9432816823153900229"
       },
       {
         "file": "src/app/store/location/location.actions.ts",
@@ -259,7 +263,7 @@
       },
       {
         "file": "src/app/store/location/location.reducers.ts",
-        "hash": "126301249416078165"
+        "hash": "12615793572785680992"
       },
       {
         "file": "src/app/store/location/location.selectors.ts",
@@ -275,7 +279,7 @@
       },
       {
         "file": "src/app/store/tabs/tab.reducers.ts",
-        "hash": "14041384769651338553"
+        "hash": "18347879302980537355"
       },
       {
         "file": "src/app/store/tabs/tab.selectors.ts",
